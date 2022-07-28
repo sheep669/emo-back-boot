@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sheep.emo.mapper.MenuMapper">
+
+    <resultMap id="menuResultMap" type="com.sheep.emo.pojo.Menu">
+        <id property="menuId" column="menu_id"/>
+        <collection property="children" column="menu_id" select="getChildren"/>
+    </resultMap>
+    <select id="getMenuByRole" parameterType="string" resultMap="menuResultMap">
+        SELECT *
+        FROM menu
+        where role LIKE CONCAT('%', #{role},'%')
+    </select>
+    <select id="getChildren" resultMap="subResultMap">
+        select *
+        from children
+        where menu_id = #{menuId}
+    </select>
+    <resultMap id="subResultMap" type="com.sheep.emo.pojo.Children">
+        <id property="childrenId" column="children_id"/>
+        <collection property="submenu" column="children_id" select="getSubMenu"/>
+    </resultMap>
+    <select id="getSubMenu" resultType="com.sheep.emo.pojo.Submenu">
+        select *
+        from submenu
+        where children_id = #{childrenId}
+    </select>
+</mapper>
