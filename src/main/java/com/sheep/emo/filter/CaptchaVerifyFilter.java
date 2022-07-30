@@ -33,8 +33,9 @@ public class CaptchaVerifyFilter extends OncePerRequestFilter {
         if (request.getServletPath().equals(Constant.LOGIN_URL) && request.getMethod().equalsIgnoreCase(Constant.POST_REQUEST_METHOD)) {
             //校验验证码
             String pvc = request.getParameter("verCode");
-            String rvc = (String) redisUtil.getValueByKey("verCode");
+            String rvc = (String) redisUtil.getValueByKey(request.getSession().getId());
             if (pvc.equals(rvc)) {
+                redisUtil.delete(request.getSession().getId());
                 //放行
                 filterChain.doFilter(request, response);
             } else {

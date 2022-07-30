@@ -11,5 +11,6 @@ public final class Constant {
     public static final String TOKEN_KEY = "Authorization";
     public static final String CAPTCHA_URL = "/captcha";
     public static final String GET_MENUS_URL = "/get_menu_data";
-    public static final String REGISTER_URL= "/register";
+    public static final String REGISTER_URL = "/register";
+    public static final String TOKEN_VERIFY_KEY = "@#56MeD4eaSDWD";
 }

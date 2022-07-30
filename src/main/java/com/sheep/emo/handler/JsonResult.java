@@ -19,7 +19,7 @@ public abstract class JsonResult {
                              Object data) throws IOException, ServletException {
         //这里很重要，否则页面获取不到正常的JSON数据集
         response.setContentType("application/json;charset=UTF-8");
-        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:8081");
         response.setHeader("Access-Control-Allow-Method", "POST,GET");
         //输出JSON
         PrintWriter out = response.getWriter();

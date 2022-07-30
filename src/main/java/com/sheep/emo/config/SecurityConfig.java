@@ -5,7 +5,7 @@ import com.sheep.emo.filter.CaptchaVerifyFilter;
 import com.sheep.emo.filter.EncodeHandleFilter;
 import com.sheep.emo.filter.JwtTokenVerifyFilter;
 import com.sheep.emo.handler.*;
-import com.sheep.emo.service.UserDetailServiceImpl;
+import com.sheep.emo.service.impl.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -141,9 +141,6 @@ public class SecurityConfig {
     @Autowired
     private EncodeHandleFilter encodeHandleFilter;
 
-    @Autowired
-    private MyExpiredSessionStrategy myExpiredSessionStrategy;
-
 
     /**
      * 配置过滤拦截
@@ -159,18 +156,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/captcha").permitAll()
-                .antMatchers("/get_menu_data").anonymous()
-                .antMatchers("/register").anonymous()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/logout").permitAll()
+                .antMatchers("/get_menu_data").permitAll()
+                .antMatchers("/register").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(captchaVerifyFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtTokenVerifyFilter, CaptchaVerifyFilter.class)
                 .addFilterBefore(accountVerifyFilter, JwtTokenVerifyFilter.class)
                 .addFilterBefore(encodeHandleFilter, AccountVerifyFilter.class)
                 .formLogin()
-                .usernameParameter("username")
-                .passwordParameter("password")
                 .successHandler(myAuthenticationSuccessHandler)
                 .failureHandler(myAuthenticationFailureHandler)
                 .and().exceptionHandling()
@@ -180,12 +173,10 @@ public class SecurityConfig {
                 .addLogoutHandler(myLogoutHandler)
                 .logoutSuccessHandler(myLogoutSuccessHandler)
                 .deleteCookies("JSESSIONID")
-                .and().sessionManagement()
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(false)
-                .expiredSessionStrategy(myExpiredSessionStrategy)
-                .and().and().csrf().disable()
-                .cors().configurationSource(corsConfigurationSource());
+                .and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true)
+                .and()
+                .and().cors()
+                .and().csrf().disable();
 
         return http.build();
     }
@@ -217,14 +208,12 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         // 新建一个跨域配置
         CorsConfiguration configuration = new CorsConfiguration();
-        // 允许跨域访问的域名 所有
-        configuration.addAllowedOrigin("*");
-        // 允许访问的方法名 所有
+        // 允许携带cookie
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedOrigin("http://localhost:8081");
         configuration.addAllowedMethod("*");
-        // 允许服务端访问客户端的请求头 所有
         configuration.addAllowedHeader("*");
-        // 跨域允许时间 3秒
-        configuration.setMaxAge(Duration.ofMillis(3000));
+        configuration.setMaxAge(Duration.ofMillis(3600L));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         // 允许跨域访问的请求 所有请求 /**
         source.registerCorsConfiguration("/**", configuration);

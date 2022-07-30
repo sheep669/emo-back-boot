@@ -1,5 +1,7 @@
 package com.sheep.emo.handler;
 
+import com.sheep.emo.utils.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
@@ -15,9 +17,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component("myLogoutHandler")
 public class MyLogoutHandler extends JsonResult implements LogoutHandler {
+    @Autowired
+    private RedisUtil redisUtil;
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        redisUtil.delete(authentication.getName());
         SecurityContextHolder.clearContext();
+
     }
 }
 

@@ -5,6 +5,7 @@ import com.sheep.emo.response.ResultCode;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
@@ -40,8 +41,9 @@ public class MyAuthenticationFailureHandler extends JsonResult implements Authen
         } else if (ex instanceof InternalAuthenticationServiceException) {
             //用户不存在
             result = Result.error(ResultCode.USER_ACCOUNT_NOT_EXIST);
+        } else if (ex instanceof SessionAuthenticationException) {
+            result = Result.error(ResultCode.USER_ACCOUNT_USE_BY_OTHERS);
         } else {
-            //其他错误
             result = Result.error(ResultCode.COMMON_FAIL);
         }
         this.WriteJSON(request, response, result);

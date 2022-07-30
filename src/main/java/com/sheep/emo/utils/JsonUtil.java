@@ -31,5 +31,22 @@ public class JsonUtil {
             return null;
         }
     }
+
+    /**
+     * 将对象转成下划线连接的json字符串(包含时间格式化)
+     *
+     * @param o 任意非空对象
+     * @return java.lang.String
+     * @author sheep669
+     * @created at 2022/7/22 17:42
+     */
+    public static String toUnderlineJsonStringWithTimeFormat(Object o) {
+        if (ObjectUtil.isNotNull(o)) {
+            String s1 = JSON.toJSONString(o);
+            return StrUtil.toUnderlineCase(s1);
+        } else {
+            return null;
+        }
+    }
 }
 

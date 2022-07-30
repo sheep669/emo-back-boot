@@ -21,15 +21,13 @@ import com.sheep.emo.utils.JsonUtil;
 import com.sheep.emo.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -53,13 +51,15 @@ public class UserController {
      * @created at 2022/7/23 10:08
      */
     @RequestMapping("/captcha")
-    public void getCaptcha(HttpServletResponse response) throws IOException {
+    public void getCaptcha(HttpServletResponse response, HttpServletRequest request) throws IOException {
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(200, 100);
         //图形验证码写出，可以写出到文件，也可以写出到流
         ServletOutputStream outputStream = response.getOutputStream();
         lineCaptcha.write(outputStream);
         String code = lineCaptcha.getCode();
-        redisUtil.setValueByKey("verCode", code);
+        redisUtil.setValueByKey(request.getSession().getId(), code);
+        String id = request.getSession().getId();
+        System.out.println("提供验证码" + id);
     }
 
     /**
@@ -72,6 +72,7 @@ public class UserController {
     @GetMapping("/get_menu_data")
     public String getMenuData() {
         List<Menu> menu = menuMapper.getMenuByRole((String) redisUtil.getValueByKey("role"));
+        redisUtil.delete("role");
         return JsonUtil.toUnderlineJsonString(menu);
     }
 
@@ -104,6 +105,9 @@ public class UserController {
             } else {
                 user.setPassword(passwordEncoder.encode(uPwd2));
                 user.setRole("user");
+                user.setCreateTime(new Date());
+                user.setUpdateTime(new Date());
+                user.setRegisterTime(new Date());
                 int insert = userMapper.insert(user);
                 if (insert > 0) {
                     Result res = Result.ok().message("注册成功");
@@ -121,5 +125,6 @@ public class UserController {
     public String getTableData() {
         return "this is data";
     }
+
 }
 

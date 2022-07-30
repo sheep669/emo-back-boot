@@ -1,8 +1,9 @@
-package com.sheep.emo.service;
+package com.sheep.emo.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.jwt.JWTUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.sheep.emo.constant.Constant;
 import com.sheep.emo.mapper.UserMapper;
 import com.sheep.emo.pojo.User;
 import com.sheep.emo.utils.RedisUtil;
@@ -12,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +24,9 @@ import java.util.Map;
  * @description : TODO
  * @created at 2022/7/17 15:26
  */
+@Service
 public class UserDetailServiceImpl implements UserDetailsService {
+
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -38,7 +42,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         } else {
             Map<String, Object> map = new HashMap<>(16);
             map.put("userInfo", user.getUsername());
-            String token = JWTUtil.createToken(map, user.getUsername().getBytes());
+            String token = JWTUtil.createToken(map, Constant.TOKEN_VERIFY_KEY.getBytes());
             redisUtil.setValueByKey(user.getUsername(), token);
             redisUtil.setValueByKey("role", user.getRole());
         }

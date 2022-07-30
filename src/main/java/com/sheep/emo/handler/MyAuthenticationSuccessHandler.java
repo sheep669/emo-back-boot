@@ -4,7 +4,6 @@ import com.sheep.emo.response.Result;
 import com.sheep.emo.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +29,8 @@ public class MyAuthenticationSuccessHandler extends JsonResult implements Authen
                                         Authentication authentication) throws IOException, ServletException {
         Result result = Result.ok().message("登录成功").data("token", redisUtil.getValueByKey(authentication.getName()));
         this.WriteJSON(request, response, result);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String id = request.getSession().getId();
+        System.out.println("登录"+id);
     }
 }
 

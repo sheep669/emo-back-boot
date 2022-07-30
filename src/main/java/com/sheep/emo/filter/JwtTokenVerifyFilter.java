@@ -8,7 +8,6 @@ import com.sheep.emo.response.Result;
 import com.sheep.emo.response.ResultCode;
 import com.sheep.emo.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -25,12 +24,6 @@ import java.io.IOException;
  */
 @Component("jwtTokenVerifyFilter")
 public class JwtTokenVerifyFilter extends OncePerRequestFilter {
-    // @Override
-    // protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-    //     filterChain.doFilter(request, response);
-    // }
-
-
     @Autowired
     private RedisUtil redisUtil;
 
@@ -51,12 +44,7 @@ public class JwtTokenVerifyFilter extends OncePerRequestFilter {
             } else {
                 //验证token是否有效
                 String token = request.getHeader(Constant.TOKEN_KEY);
-                System.out.println(token);
-                String name = SecurityContextHolder.getContext().getAuthentication().getName();
-                String auToken = (String) redisUtil.getValueByKey(name);
-                System.out.println(auToken);
-                System.out.println();
-                boolean verify = JWTUtil.verify(token, name.getBytes());
+                boolean verify = JWTUtil.verify(token, Constant.TOKEN_VERIFY_KEY.getBytes());
                 System.out.println(verify);
                 if (verify) {
                     filterChain.doFilter(request, response);
