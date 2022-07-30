@@ -58,8 +58,6 @@ public class UserController {
         lineCaptcha.write(outputStream);
         String code = lineCaptcha.getCode();
         redisUtil.setValueByKey(request.getSession().getId(), code);
-        String id = request.getSession().getId();
-        System.out.println("提供验证码" + id);
     }
 
     /**
@@ -122,7 +120,7 @@ public class UserController {
     }
 
     @GetMapping("/get_data")
-    public String getTableData() {
+    public String test() {
         return "this is data";
     }
 

@@ -29,8 +29,6 @@ public class MyAuthenticationSuccessHandler extends JsonResult implements Authen
                                         Authentication authentication) throws IOException, ServletException {
         Result result = Result.ok().message("登录成功").data("token", redisUtil.getValueByKey(authentication.getName()));
         this.WriteJSON(request, response, result);
-        String id = request.getSession().getId();
-        System.out.println("登录"+id);
     }
 }
 

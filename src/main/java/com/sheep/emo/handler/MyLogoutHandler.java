@@ -23,7 +23,6 @@ public class MyLogoutHandler extends JsonResult implements LogoutHandler {
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         redisUtil.delete(authentication.getName());
         SecurityContextHolder.clearContext();
-
     }
 }
 
