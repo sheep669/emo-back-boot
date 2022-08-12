@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.GroupBuyingOrganizer;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * @author : sheep669
  * @description : 团长的增删改查服务层接口
@@ -13,26 +11,6 @@ import java.util.List;
  */
 @Service
 public interface GroupBuyingOrganizerService {
-    /**
-     * 获得团长列表
-     *
-     * @return List<GroupBuyingOrganizer>
-     * @author sheep669
-     * @created at 2022/7/29 11:51
-     */
-    List<GroupBuyingOrganizer> getGroupBuyingOrganizerList();
-
-    // /**
-    //  * 分页获得团长列表
-    //  *
-    //  * @param current 当前第几页
-    //  * @param size    每页条数
-    //  * @return Page<GroupBuyingOrganizer>
-    //  * @author sheep669
-    //  * @created at 2022/8/3 20:29
-    //  */
-    // Page<GroupBuyingOrganizer> getPageGroupBuyingOrganizerList(int current, int size);
-
     /**
      * 分页获得团长列表或者查询并分页获得团长列表
      *

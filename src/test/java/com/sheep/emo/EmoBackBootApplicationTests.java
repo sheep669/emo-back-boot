@@ -1,6 +1,5 @@
 package com.sheep.emo;
 
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.mapper.GroupBuyingOrganizerMapper;
@@ -28,9 +27,6 @@ class EmoBackBootApplicationTests {
 
     @Test
     void contextLoads() {
-        List<GroupBuyingOrganizer> groupBuyingOrganizerList = groupBuyingOrganizerService.getGroupBuyingOrganizerList();
-        String s1 = JSONUtil.toJsonStr(groupBuyingOrganizerList);
-        System.out.println(StrUtil.toUnderlineCase(s1));
     }
 
     @Test

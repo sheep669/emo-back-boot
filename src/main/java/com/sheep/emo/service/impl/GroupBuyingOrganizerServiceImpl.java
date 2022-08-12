@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author : sheep669
@@ -24,17 +23,6 @@ public class GroupBuyingOrganizerServiceImpl implements GroupBuyingOrganizerServ
 
     @Autowired
     private GroupBuyingOrganizerMapper groupBuyingOrganizerMapper;
-
-    @Override
-    public List<GroupBuyingOrganizer> getGroupBuyingOrganizerList() {
-        return groupBuyingOrganizerMapper.selectList(null);
-    }
-
-    // @Override
-    // public Page<GroupBuyingOrganizer> getPageGroupBuyingOrganizerList(int current, int size) {
-    //     Page<GroupBuyingOrganizer> page = new Page<>(current, size);
-    //     return groupBuyingOrganizerMapper.selectPage(page, null);
-    // }
 
     @Override
     public Page<GroupBuyingOrganizer> searchOrGetGroupBuyingOrganizerList(int current, int size, GroupBuyingOrganizer groupBuyingOrganizer) {

@@ -37,19 +37,6 @@ public class GroupBuyingOrganizerController {
     private GroupBuyingOrganizerService groupBuyingOrganizerService;
 
     /**
-     * 获得团长列表
-     *
-     * @return java.util.List<com.sheep.emo.pojo.GroupBuyingOrganizer>
-     * @author sheep669
-     * @created at 2022/8/5 10:03
-     */
-    @ApiOperation(value = "获得团长列表")
-    @GetMapping("/getGroupBuyingOrganizerList")
-    public List<GroupBuyingOrganizer> getGroupBuyingOrganizerList() {
-        return groupBuyingOrganizerService.getGroupBuyingOrganizerList();
-    }
-
-    /**
      * 分页获得团长列表或者查询并分页获得团长列表
      *
      * @param current              当前页
@@ -108,7 +95,7 @@ public class GroupBuyingOrganizerController {
      * @author sheep669
      * @created at 2022/8/1 10:32
      */
-    @ApiOperation(value = "根据id删除指定团长")
+    @ApiOperation(value = "根据id批量删除指定团长")
     @PostMapping("/groupBuyingOrganizer/deleteBatch")
     public Result deleteGroupBuyingOrganizerBatchByIds(@RequestBody Long[] ids) {
         int i = groupBuyingOrganizerService.deleteGroupBuyingOrganizerBatchByIds(ids);
