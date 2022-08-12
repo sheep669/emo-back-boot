@@ -1,28 +1,30 @@
 package com.sheep.emo.pojo;
 
 
-import com.alibaba.fastjson.annotation.JSONField;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * (AfterSale)实体类
+ * 售后表(AfterSale)实体类
  *
  * @author makejava
  * @since 2022-07-28 21:39:31
  */
-@Getter
-@Setter
-@ToString
+@JsonIgnoreProperties({"createTime", "updateTime"})
+@Data
 public class AfterSale implements Serializable {
     private static final long serialVersionUID = 956620433874986906L;
     /**
      * 主键id
      */
+    @TableId(type = IdType.AUTO)
     private Long id;
     /**
      * 店铺名称
@@ -35,11 +37,11 @@ public class AfterSale implements Serializable {
     /**
      * 申请金额
      */
-    private Double applyMoney;
+    private BigDecimal applyMoney;
     /**
      * 退货编号
      */
-    private Integer returnGoodsNumber;
+    private Long returnGoodsNumber;
     /**
      * 买家姓名
      */
@@ -55,17 +57,17 @@ public class AfterSale implements Serializable {
     /**
      * 申请时间
      */
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date applyTime;
     /**
      * 创建时间
      */
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     /**
      * 更新时间
      */
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 }
 

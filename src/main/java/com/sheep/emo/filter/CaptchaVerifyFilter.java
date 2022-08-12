@@ -1,10 +1,10 @@
 package com.sheep.emo.filter;
 
 
+import cn.hutool.json.JSONUtil;
 import com.sheep.emo.constant.Constant;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.response.ResultCode;
-import com.sheep.emo.utils.JsonUtil;
 import com.sheep.emo.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * @author : sheep669
@@ -41,7 +40,7 @@ public class CaptchaVerifyFilter extends OncePerRequestFilter {
             } else {
                 // 响应验证码错误到前端
                 Result result = Result.error(ResultCode.VERIFY_CODE_FAIL);
-                response.getWriter().write(Objects.requireNonNull(JsonUtil.toUnderlineJsonString(result)));
+                response.getWriter().write(JSONUtil.toJsonStr(result));
             }
         } else {
             filterChain.doFilter(request, response);

@@ -8,5 +8,4 @@ import com.sheep.emo.pojo.GroupBuyingOrganizer;
  * @description : TODO
  * @created at 2022/7/29 11:40
  */
-public interface GroupBuyingOrganizerMapper extends BaseMapper<GroupBuyingOrganizer> {
-}
+public interface GroupBuyingOrganizerMapper extends BaseMapper<GroupBuyingOrganizer> { }

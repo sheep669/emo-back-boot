@@ -39,6 +39,7 @@ public class SwaggerConfig {
     public Docket createApi() {
         return new Docket(DocumentationType.SWAGGER_2).
                 apiInfo(createApiInfo())
+                .groupName("sheep")
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .build();

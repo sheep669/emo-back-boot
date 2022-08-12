@@ -1,6 +1,5 @@
 package com.sheep.emo;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,7 +9,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @created at 2022/7/28 18:28
  */
 @SpringBootApplication
-@MapperScan("com.sheep.emo.mapper")
 public class EmoBackBootApplication {
 
     public static void main(String[] args) {

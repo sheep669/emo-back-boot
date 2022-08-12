@@ -4,16 +4,14 @@ import cn.hutool.core.util.StrUtil;
 import com.sheep.emo.constant.Constant;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.response.ResultCode;
-import com.sheep.emo.utils.JsonUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
+import cn.hutool.json.JSONUtil;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 
 /**
  * @author : sheep669
@@ -30,10 +28,10 @@ public class AccountVerifyFilter extends OncePerRequestFilter {
         if (request.getServletPath().equals(Constant.LOGIN_URL) && request.getMethod().equalsIgnoreCase(Constant.POST_REQUEST_METHOD)) {
             if (StrUtil.isBlank(username)) {
                 Result result = Result.error(ResultCode.USERNAME_IS_BLANK);
-                response.getWriter().write(Objects.requireNonNull(JsonUtil.toUnderlineJsonString(result)));
+                response.getWriter().write(JSONUtil.toJsonStr(result));
             } else if (StrUtil.isBlank(password)) {
                 Result result = Result.error(ResultCode.PASSWORD_IS_BLANK);
-                response.getWriter().write(Objects.requireNonNull(JsonUtil.toUnderlineJsonString(result)));
+                response.getWriter().write(JSONUtil.toJsonStr(result));
             } else {
                 // 通行
                 filterChain.doFilter(request, response);

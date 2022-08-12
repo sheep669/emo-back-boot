@@ -1,6 +1,6 @@
 package com.sheep.emo.handler;
 
-import com.sheep.emo.utils.JsonUtil;
+import cn.hutool.json.JSONUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +23,8 @@ public abstract class JsonResult {
         response.setHeader("Access-Control-Allow-Method", "POST,GET");
         //输出JSON
         PrintWriter out = response.getWriter();
-        String s = JsonUtil.toUnderlineJsonString(data);
-        out.write(s);
+
+        out.write(JSONUtil.toJsonStr(data));
         out.flush();
         out.close();
     }

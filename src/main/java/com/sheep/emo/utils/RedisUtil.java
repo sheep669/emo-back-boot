@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  * @description : TODO
  * @created at 2022/7/11 12:30
  */
+@SuppressWarnings("ALL")
 @Component
 public class RedisUtil {
 

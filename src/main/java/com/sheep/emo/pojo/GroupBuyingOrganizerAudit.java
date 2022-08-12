@@ -8,81 +8,62 @@ import lombok.Data;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 用户表(User)实体类
+ * 团长审核表(GroupBuyingOrganizerAudit)实体类
  *
  * @author makejava
- * @since 2022-07-29 09:52:01
+ * @since 2022-08-07 21:51:36
  */
 @JsonIgnoreProperties({"createTime", "updateTime"})
 @Data
-public class User implements Serializable {
-    private static final long serialVersionUID = 734502318266104527L;
+public class GroupBuyingOrganizerAudit implements Serializable {
+    private static final long serialVersionUID = 588602206188667605L;
     /**
      * 主键id
      */
     @TableId(type = IdType.AUTO)
     private Long id;
     /**
-     * 用户名
+     * 店铺名称
      */
-    private String username;
+    private String storeName;
     /**
-     * 密码
+     * 团长姓名
      */
-    private String password;
+    private String groupBuyingOrganizerName;
     /**
-     * 角色
-     */
-    private String role;
-    /**
-     * 昵称
-     */
-    private String nickname;
-    /**
-     * 用户类型
-     */
-    private String userType;
-    /**
-     * 头像
-     */
-    private String avatar;
-    /**
-     * 手机号码
+     * 手机号
      */
     @Pattern(regexp = "^1(3[0-9]|5[0-3,5-9]|7[1-3,5-8]|8[0-9])\\d{8}$", message = "手机号不合法")
     private String phoneNumber;
-    /**
-     * 账户余额
-     */
-    private BigDecimal accountBalance;
-    /**
-     * 所在地区
-     */
-    private String location;
-    /**
-     * 注册时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date registerTime;
     /**
      * 推荐人
      */
     private String referrer;
     /**
-     * 状态 1:启用 2:禁用 默认值:1
+     * 审核状态 1:待审核 2:审核中 3:审核通过 0:审核不通过
      */
-    private String status;
+    private String auditStatus;
+    /**
+     * 申请时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date applyTime;
+    /**
+     * 详细地址
+     */
+    private String detailAddress;
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     /**
-     * 更新时间
+     * 修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 }
 

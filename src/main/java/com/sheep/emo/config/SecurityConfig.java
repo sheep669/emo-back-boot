@@ -156,8 +156,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/captcha").permitAll()
-                .antMatchers("/get_menu_data").permitAll()
+                // .antMatchers("/get_menu_data").permitAll()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/logout").permitAll()
                 .anyRequest().authenticated()
                 .and().addFilterBefore(captchaVerifyFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtTokenVerifyFilter, CaptchaVerifyFilter.class)
@@ -173,14 +174,11 @@ public class SecurityConfig {
                 .addLogoutHandler(myLogoutHandler)
                 .logoutSuccessHandler(myLogoutSuccessHandler)
                 .deleteCookies("JSESSIONID")
-                .and().sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true)
-                .and()
                 .and().cors()
                 .and().csrf().disable();
 
         return http.build();
     }
-
 
     /**
      * 注入授权提供者, 设置授权实现类和密码校验
@@ -211,6 +209,7 @@ public class SecurityConfig {
         // 允许携带cookie
         configuration.setAllowCredentials(true);
         configuration.addAllowedOrigin("http://localhost:8081");
+        // configuration.addAllowedOrigin("*");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.setMaxAge(Duration.ofMillis(3600L));

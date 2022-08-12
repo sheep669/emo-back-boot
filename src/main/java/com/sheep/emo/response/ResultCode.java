@@ -12,7 +12,7 @@ public enum ResultCode {
     SUCCESS(200, "成功"),
 
     /* 默认失败 */
-    COMMON_FAIL(999, "失败"),
+    COMMON_FAIL(400, "失败"),
 
     /* 登陆相关 */
     USERNAME_IS_BLANK(1001, "用户名不能为空"),
@@ -35,7 +35,8 @@ public enum ResultCode {
     USER_ACCOUNT_USE_BY_OTHERS(2009, "已经在另一台机器登录,无需重复登陆"),
 
     /* 业务错误 */
-    NO_PERMISSION(3001, "没有权限");
+    NO_PERMISSION(3001, "没有权限"),
+    UNKNOWN_ERROR(3002, "未知错误");
 
 
     private final Integer code;

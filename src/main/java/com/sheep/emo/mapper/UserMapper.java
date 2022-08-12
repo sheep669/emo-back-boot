@@ -8,4 +8,4 @@ import com.sheep.emo.pojo.User;
  * @description : TODO
  * @created at 2022/7/17 15:30
  */
-public interface UserMapper extends BaseMapper<User> {}
+public interface UserMapper extends BaseMapper<User> { }

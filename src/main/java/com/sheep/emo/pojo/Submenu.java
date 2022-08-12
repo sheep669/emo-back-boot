@@ -1,7 +1,8 @@
 package com.sheep.emo.pojo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,32 +15,31 @@ import java.io.Serializable;
  * @author makejava
  * @since 2022-07-16 10:45:56
  */
+@JsonIgnoreProperties({"submenuId", "childrenId"})
 @Getter
 @Setter
 @ToString
 public class Submenu implements Serializable {
     private static final long serialVersionUID = 877080340343359912L;
     /**
-     * submenu_id
+     * 子菜单id
      */
-    @TableId
-    @JSONField(serialize = false)
+    @TableId(type = IdType.AUTO)
     private Long submenuId;
     /**
-     * 用户查看
+     * 子菜单标题
      */
     private String submenuTitle;
     /**
-     * children_id
+     * 子id
      */
-    @JSONField(serialize = false)
     private Long childrenId;
     /**
-     * /sys_user_view
+     * 子路由路径
      */
     private String path;
     /**
-     * /system/sys-user-view
+     * 子路由组件
      */
     private String component;
 

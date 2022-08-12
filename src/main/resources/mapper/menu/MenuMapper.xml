@@ -9,7 +9,7 @@
     <select id="getMenuByRole" parameterType="string" resultMap="menuResultMap">
         SELECT *
         FROM menu
-        where role LIKE CONCAT('%', #{role},'%')
+        where role LIKE CONCAT('%', #{role}, '%')
     </select>
     <select id="getChildren" resultMap="subResultMap">
         select *
@@ -20,7 +20,7 @@
         <id property="childrenId" column="children_id"/>
         <collection property="submenu" column="children_id" select="getSubMenu"/>
     </resultMap>
-    <select id="getSubMenu" resultType="com.sheep.emo.pojo.Submenu">
+    <select id="getSubMenu" resultType="Submenu">
         select *
         from submenu
         where children_id = #{childrenId}

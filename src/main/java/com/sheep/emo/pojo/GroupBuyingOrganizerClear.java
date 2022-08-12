@@ -1,20 +1,25 @@
 package com.sheep.emo.pojo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * (GroupBuyingOrganizerClear)实体类
+ * 团长结算表(GroupBuyingOrganizerClear)实体类
  *
  * @author makejava
  * @since 2022-07-28 21:39:30
  */
+@JsonIgnoreProperties({"createTime", "updateTime"})
 @Getter
 @Setter
 @ToString
@@ -23,6 +28,7 @@ public class GroupBuyingOrganizerClear implements Serializable {
     /**
      * 主键id
      */
+    @TableId(type = IdType.AUTO)
     private Long id;
     /**
      * 团长姓名
@@ -31,6 +37,7 @@ public class GroupBuyingOrganizerClear implements Serializable {
     /**
      * 联系方式
      */
+    @Pattern(regexp = "^1(3[0-9]|5[0-3,5-9]|7[1-3,5-8]|8[0-9])\\d{8}$", message = "手机号不合法")
     private String phoneNumber;
     /**
      * 店铺名称
@@ -39,7 +46,7 @@ public class GroupBuyingOrganizerClear implements Serializable {
     /**
      * 店铺地址
      */
-    private String storeAdress;
+    private String storeAddress;
     /**
      * 已结算佣金
      */
@@ -51,12 +58,12 @@ public class GroupBuyingOrganizerClear implements Serializable {
     /**
      * 创建时间
      */
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     /**
      * 更新时间
      */
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
 }

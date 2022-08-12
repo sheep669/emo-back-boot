@@ -1,13 +1,5 @@
 package com.sheep.emo.filter;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.jwt.JWTUtil;
-import com.alibaba.fastjson.JSON;
-import com.sheep.emo.constant.Constant;
-import com.sheep.emo.response.Result;
-import com.sheep.emo.response.ResultCode;
-import com.sheep.emo.utils.RedisUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -24,36 +16,42 @@ import java.io.IOException;
  */
 @Component("jwtTokenVerifyFilter")
 public class JwtTokenVerifyFilter extends OncePerRequestFilter {
-    @Autowired
-    private RedisUtil redisUtil;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request.getServletPath().equals(Constant.LOGIN_URL) && request.getMethod().equalsIgnoreCase(Constant.POST_REQUEST_METHOD)) {
-            filterChain.doFilter(request, response);
-        } else if (request.getServletPath().equals(Constant.CAPTCHA_URL)) {
-            filterChain.doFilter(request, response);
-        } else if (request.getServletPath().equals(Constant.GET_MENUS_URL)) {
-            filterChain.doFilter(request, response);
-        } else if (request.getServletPath().equals(Constant.REGISTER_URL)) {
-            filterChain.doFilter(request, response);
-        } else {
-            if (StrUtil.isBlank(request.getHeader(Constant.TOKEN_KEY))) {
-                Result res = Result.error(ResultCode.TOKEN_IS_BLANK);
-                response.getWriter().write(JSON.toJSONString(res));
-            } else {
-                //验证token是否有效
-                String token = request.getHeader(Constant.TOKEN_KEY);
-                boolean verify = JWTUtil.verify(token, Constant.TOKEN_VERIFY_KEY.getBytes());
-                System.out.println(verify);
-                if (verify) {
-                    filterChain.doFilter(request, response);
-                } else {
-                    Result to = Result.error(ResultCode.TOKEN_IS_EXPIRED);
-                    response.getWriter().write(JSON.toJSONString(to));
-                }
-            }
-        }
+        filterChain.doFilter(request, response);
     }
+
+
+    // @Autowired
+    // private RedisUtil redisUtil;
+    //
+    // @Override
+    // protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    //     if (request.getServletPath().equals(Constant.LOGIN_URL) && request.getMethod().equalsIgnoreCase(Constant.POST_REQUEST_METHOD)) {
+    //         filterChain.doFilter(request, response);
+    //     } else if (request.getServletPath().equals(Constant.CAPTCHA_URL)) {
+    //         filterChain.doFilter(request, response);
+    //     } else if (request.getServletPath().equals(Constant.GET_MENUS_URL)) {
+    //         filterChain.doFilter(request, response);
+    //     } else if (request.getServletPath().equals(Constant.REGISTER_URL)) {
+    //         filterChain.doFilter(request, response);
+    //     } else {
+    //         if (StrUtil.isBlank(request.getHeader(Constant.TOKEN_KEY))) {
+    //             Result res = Result.error(ResultCode.TOKEN_IS_BLANK);
+    //             response.getWriter().write(JSONUtil.toJsonStr(res));
+    //         } else {
+    //             //验证token是否有效
+    //             String token = request.getHeader(Constant.TOKEN_KEY);
+    //             boolean verify = JWTUtil.verify(token, Constant.TOKEN_VERIFY_KEY.getBytes());
+    //             System.out.println(verify);
+    //             if (verify) {
+    //                 filterChain.doFilter(request, response);
+    //             } else {
+    //                 Result res = Result.error(ResultCode.TOKEN_IS_EXPIRED);
+    //                 response.getWriter().write(JSONUtil.toJsonStr(res));
+    //             }
+    //         }
+    //     }
+    // }
 }
 

@@ -1,7 +1,8 @@
 package com.sheep.emo.pojo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,27 +16,28 @@ import java.util.List;
  * @author makejava
  * @since 2022-07-16 10:45:56
  */
+@JsonIgnoreProperties({"childrenId", "menuId"})
 @Getter
 @Setter
 @ToString
 public class Children implements Serializable {
     private static final long serialVersionUID = 230548543647678837L;
     /**
-     * children_id
+     * 子id
      */
-    @TableId
-    @JSONField(serialize = false)
+    @TableId(type = IdType.AUTO)
     private Long childrenId;
     /**
-     * 系统用户管理
+     * 子菜单详细标题
      */
     private String detailTitle;
     /**
-     * root_id
+     * 主菜单id
      */
-    @JSONField(serialize = false)
     private Long menuId;
-
+    /**
+     * el-divider是否隐藏
+     */
     private String hidden;
 
     private List<Submenu> submenu;

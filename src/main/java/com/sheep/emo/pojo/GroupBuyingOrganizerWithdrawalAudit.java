@@ -1,20 +1,25 @@
 package com.sheep.emo.pojo;
 
-import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * (GroupBuyingOrganizerWithdrawalAudit)实体类
+ * 团长提现审核表(GroupBuyingOrganizerWithdrawalAudit)实体类
  *
  * @author makejava
  * @since 2022-07-28 21:39:32
  */
+@JsonIgnoreProperties({"createTime", "updateTime"})
 @Getter
 @Setter
 @ToString
@@ -23,6 +28,7 @@ public class GroupBuyingOrganizerWithdrawalAudit implements Serializable {
     /**
      * 主键id
      */
+    @TableId(type = IdType.AUTO)
     private Long id;
     /**
      * 团长名称
@@ -35,7 +41,8 @@ public class GroupBuyingOrganizerWithdrawalAudit implements Serializable {
     /**
      * 电话
      */
-    private Integer phoneNumber;
+    @Pattern(regexp = "^1(3[0-9]|5[0-3,5-9]|7[1-3,5-8]|8[0-9])\\d{8}$", message = "手机号不合法")
+    private String phoneNumber;
     /**
      * 到账类型
      */
@@ -51,7 +58,7 @@ public class GroupBuyingOrganizerWithdrawalAudit implements Serializable {
     /**
      * 申请日期
      */
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date applyTime;
     /**
      * 审核状态 1:待审核  2:审核中 3:通过 4:不予通过
@@ -60,12 +67,12 @@ public class GroupBuyingOrganizerWithdrawalAudit implements Serializable {
     /**
      * 创建时间
      */
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     /**
      * 更新时间
      */
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
 }
