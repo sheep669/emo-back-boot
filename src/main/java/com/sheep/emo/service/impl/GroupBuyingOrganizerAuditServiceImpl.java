@@ -1,6 +1,9 @@
 package com.sheep.emo.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.mapper.GroupBuyingOrganizerAuditMapper;
 import com.sheep.emo.pojo.GroupBuyingOrganizerAudit;
@@ -26,20 +29,35 @@ public class GroupBuyingOrganizerAuditServiceImpl implements GroupBuyingOrganize
     @Override
     public Page<GroupBuyingOrganizerAudit> searchOrGetGroupBuyingOrganizerAuditList(int current, int size, GroupBuyingOrganizerAudit groupBuyingOrganizerAudit) {
         Page<GroupBuyingOrganizerAudit> page = new Page<>(current, size);
-        //QueryWrapper<GroupBuyingOrganizerAudit> queryWrapper = new QueryWrapper<>();
-        // if (ObjectUtil.isNotNull(groupBuyingOrganizer)) {
-        //  if (StrUtil.isNotBlank(groupBuyingOrganizer.getRecommendGroupBuyingOrganizer())) {
-        //  queryWrapper.like("recommend_group_buying_organizer", groupBuyingOrganizer.getRecommendGroupBuyingOrganizer());
-        //  }
-        //  if (StrUtil.isNotBlank(groupBuyingOrganizer.getReceiverAddress())) {
-        //  queryWrapper.like("receiver_address", groupBuyingOrganizer.getReceiverAddress());
-        //  }
-        //  if (StrUtil.isNotBlank(groupBuyingOrganizer.getPhoneNumber())) {
-        //  queryWrapper.eq("phone_number", groupBuyingOrganizer.getPhoneNumber());
-        //  .... 按需添加功能
-        //   }
-        //  return groupBuyingOrganizerMapper.selectPage(page, queryWrapper);
-        //  }
+        QueryWrapper<GroupBuyingOrganizerAudit> queryWrapper = new QueryWrapper<>();
+        if (ObjectUtil.isNotNull(groupBuyingOrganizerAudit)) {
+            // 按需添加过滤条件   模糊查询 like 查询 eq
+            if (ObjectUtil.isNotNull(groupBuyingOrganizerAudit.getId())) {
+                queryWrapper.eq("id", groupBuyingOrganizerAudit.getId());
+            }
+            if (StrUtil.isNotBlank(groupBuyingOrganizerAudit.getStoreName())) {
+                queryWrapper.like("store_name", groupBuyingOrganizerAudit.getStoreName());
+            }
+            if (StrUtil.isNotBlank(groupBuyingOrganizerAudit.getGroupBuyingOrganizerName())) {
+                queryWrapper.like("group_buying_organizer_name", groupBuyingOrganizerAudit.getGroupBuyingOrganizerName());
+            }
+            if (StrUtil.isNotBlank(groupBuyingOrganizerAudit.getPhoneNumber())) {
+                queryWrapper.eq("phone_number", groupBuyingOrganizerAudit.getPhoneNumber());
+            }
+            if (StrUtil.isNotBlank(groupBuyingOrganizerAudit.getReferrer())) {
+                queryWrapper.like("referrer", groupBuyingOrganizerAudit.getReferrer());
+            }
+            if (StrUtil.isNotBlank(groupBuyingOrganizerAudit.getAuditStatus())) {
+                queryWrapper.eq("audit_status", groupBuyingOrganizerAudit.getAuditStatus());
+            }
+            // if (StrUtil.isNotBlank(groupBuyingOrganizerAudit.getApplyTime().toString())) {
+            //     queryWrapper.eq("apply_time", groupBuyingOrganizerAudit.getApplyTime());
+            // }
+            if (StrUtil.isNotBlank(groupBuyingOrganizerAudit.getDetailAddress())) {
+                queryWrapper.like("detail_address", groupBuyingOrganizerAudit.getDetailAddress());
+            }
+            return groupBuyingOrganizerAuditMapper.selectPage(page, queryWrapper);
+        }
         return groupBuyingOrganizerAuditMapper.selectPage(page, null);
     }
 

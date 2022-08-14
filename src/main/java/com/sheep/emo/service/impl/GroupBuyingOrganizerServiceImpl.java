@@ -11,6 +11,7 @@ import com.sheep.emo.service.GroupBuyingOrganizerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 /**
@@ -29,14 +30,44 @@ public class GroupBuyingOrganizerServiceImpl implements GroupBuyingOrganizerServ
         Page<GroupBuyingOrganizer> page = new Page<>(current, size);
         QueryWrapper<GroupBuyingOrganizer> queryWrapper = new QueryWrapper<>();
         if (ObjectUtil.isNotNull(groupBuyingOrganizer)) {
+            if (ObjectUtil.isNotNull(groupBuyingOrganizer.getId()) && groupBuyingOrganizer.getId() != 0) {
+                queryWrapper.eq("id", groupBuyingOrganizer.getId());
+            }
+            if (StrUtil.isNotBlank(groupBuyingOrganizer.getPhoneNumber())) {
+                queryWrapper.eq("phone_number", groupBuyingOrganizer.getPhoneNumber());
+            }
+            if (StrUtil.isNotBlank(groupBuyingOrganizer.getStoreName())) {
+                queryWrapper.like("store_name", groupBuyingOrganizer.getStoreName());
+            }
             if (StrUtil.isNotBlank(groupBuyingOrganizer.getRecommendGroupBuyingOrganizer())) {
                 queryWrapper.like("recommend_group_buying_organizer", groupBuyingOrganizer.getRecommendGroupBuyingOrganizer());
             }
             if (StrUtil.isNotBlank(groupBuyingOrganizer.getReceiverAddress())) {
                 queryWrapper.like("receiver_address", groupBuyingOrganizer.getReceiverAddress());
             }
-            if (StrUtil.isNotBlank(groupBuyingOrganizer.getPhoneNumber())) {
-                queryWrapper.eq("phone_number", groupBuyingOrganizer.getPhoneNumber());
+            if (StrUtil.isNotBlank(groupBuyingOrganizer.getReferrer())) {
+                queryWrapper.like("referrer", groupBuyingOrganizer.getReferrer());
+            }
+            if (StrUtil.isNotBlank(groupBuyingOrganizer.getRemark())) {
+                queryWrapper.like("remark", groupBuyingOrganizer.getRemark());
+            }
+            if (ObjectUtil.isNotNull(groupBuyingOrganizer.getApplyTime())) {
+                queryWrapper.eq("apply_time", groupBuyingOrganizer.getApplyTime());
+            }
+            if (ObjectUtil.isNotNull(groupBuyingOrganizer.getCommissionBalance()) && !BigDecimal.ZERO.equals(groupBuyingOrganizer.getCommissionBalance())) {
+                queryWrapper.eq("commission_balance", groupBuyingOrganizer.getCommissionBalance());
+            }
+            if (ObjectUtil.isNotNull(groupBuyingOrganizer.getEarningsBalance()) && !BigDecimal.ZERO.equals(groupBuyingOrganizer.getEarningsBalance())) {
+                queryWrapper.eq("earnings_balance", groupBuyingOrganizer.getEarningsBalance());
+            }
+            if (ObjectUtil.isNotNull(groupBuyingOrganizer.getCashBalance()) && !BigDecimal.ZERO.equals(groupBuyingOrganizer.getCashBalance())) {
+                queryWrapper.eq("cash_balance", groupBuyingOrganizer.getCashBalance());
+            }
+            if (StrUtil.isNotBlank(groupBuyingOrganizer.getGroupBuyingOrganizerStatus())) {
+                queryWrapper.eq("group_buying_organizer_status", groupBuyingOrganizer.getGroupBuyingOrganizerStatus());
+            }
+            if (StrUtil.isNotBlank(groupBuyingOrganizer.getAuditStatus())) {
+                queryWrapper.eq("audit_status", groupBuyingOrganizer.getAuditStatus());
             }
             return groupBuyingOrganizerMapper.selectPage(page, queryWrapper);
         }

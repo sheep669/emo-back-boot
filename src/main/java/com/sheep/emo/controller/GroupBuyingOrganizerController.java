@@ -111,7 +111,7 @@ public class GroupBuyingOrganizerController {
      * @author sheep669
      * @created at 2022/8/1 10:33
      */
-    @ApiOperation(value = "更新指定团长信息 -- 参数为空使用null,请不要使用双引号")
+    @ApiOperation(value = "更新指定团长信息")
     @PostMapping("/groupBuyingOrganizer/update")
     public Result updateGroupBuyingOrganizerById(@RequestBody GroupBuyingOrganizer groupBuyingOrganizer) {
         groupBuyingOrganizer.setUpdateTime(new Date(System.currentTimeMillis()));
@@ -134,7 +134,7 @@ public class GroupBuyingOrganizerController {
      * @author sheep669
      * @created at 2022/8/1 10:33
      */
-    @ApiOperation(value = "添加团长 -- 参数为空使用null,请不要使用双引号")
+    @ApiOperation(value = "添加团长")
     @PostMapping("/groupBuyingOrganizer/add")
     public Result addGroupBuyingOrganizer(@RequestBody GroupBuyingOrganizer groupBuyingOrganizer) {
         //校验号码是否属于合法格式

@@ -12,7 +12,7 @@ import java.util.Set;
 
 /**
  * @author : sheep669
- * @description : TODO
+ * @description : 参数校验
  * @created at 2022/8/2 11:50
  */
 public class ValidatorUtil {
