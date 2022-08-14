@@ -1,6 +1,5 @@
 package com.sheep.emo.controller;
 
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.GroupBuyingOrganizer;
@@ -57,7 +56,7 @@ public class GroupBuyingOrganizerController {
                                                       @PathVariable int size,
                                                       @RequestBody(required = false) GroupBuyingOrganizer groupBuyingOrganizer) {
         //校验号码是否属于合法格式
-        if (ObjectUtil.isNotNull(groupBuyingOrganizer) && StrUtil.isNotBlank(groupBuyingOrganizer.getPhoneNumber())) {
+        if (StrUtil.isNotBlank(groupBuyingOrganizer.getPhoneNumber())) {
             Map<String, Object> valid = ValidatorUtil.valid(groupBuyingOrganizer);
             if (valid.size() > 0) {
                 return Result.error().data(valid);
