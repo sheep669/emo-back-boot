@@ -64,5 +64,38 @@ public interface GroupBuyingOrganizerService {
      * @created at 2022/8/1 10:28
      */
     int addGroupBuyingOrganizer(GroupBuyingOrganizer groupBuyingOrganizer);
+
+    /**
+     * 确认团长审核
+     *
+     * @param id 团长id
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/15 17:47
+     */
+    int confirmAudit(Long id);
+
+    /**
+     * 通过审核
+     *
+     * @param id 团长id
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/16 19:54
+     */
+    int approveAudit(Long id);
+
+
+    /**
+     * 拒绝审核
+     *
+     * @param id 团长id
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/16 19:55
+     */
+    int rejectAudit(Long id);
+
+
 }
 

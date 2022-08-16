@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.mapper.GroupBuyingOrganizerMapper;
 import com.sheep.emo.pojo.GroupBuyingOrganizer;
@@ -94,6 +95,30 @@ public class GroupBuyingOrganizerServiceImpl implements GroupBuyingOrganizerServ
     @Override
     public int addGroupBuyingOrganizer(GroupBuyingOrganizer groupBuyingOrganizer) {
         return groupBuyingOrganizerMapper.insert(groupBuyingOrganizer);
+    }
+
+    @Override
+    public int confirmAudit(Long id) {
+        UpdateWrapper<GroupBuyingOrganizer> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("audit_status", "2");
+        return groupBuyingOrganizerMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public int approveAudit(Long id) {
+        UpdateWrapper<GroupBuyingOrganizer> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("audit_status", "3");
+        return groupBuyingOrganizerMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public int rejectAudit(Long id) {
+        UpdateWrapper<GroupBuyingOrganizer> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("audit_status", "4");
+        return groupBuyingOrganizerMapper.update(null, updateWrapper);
     }
 }
 

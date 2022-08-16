@@ -1,6 +1,7 @@
 package com.sheep.emo;
 
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.mapper.GroupBuyingOrganizerMapper;
 import com.sheep.emo.mapper.MenuMapper;
@@ -27,6 +28,13 @@ class EmoBackBootApplicationTests {
 
     @Test
     void contextLoads() {
+        UpdateWrapper<GroupBuyingOrganizer> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", 1);
+        updateWrapper.set("audit_status", "2");
+        int update = groupBuyingOrganizerMapper.update(null, updateWrapper);
+        if (update > 0) {
+            System.out.println("update is ok");
+        }
     }
 
     @Test

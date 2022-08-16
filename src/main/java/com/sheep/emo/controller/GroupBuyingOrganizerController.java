@@ -1,5 +1,6 @@
 package com.sheep.emo.controller;
 
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.GroupBuyingOrganizer;
@@ -40,7 +41,7 @@ public class GroupBuyingOrganizerController {
      *
      * @param current              当前页
      * @param size                 获取几条
-     * @param groupBuyingOrganizer 需要查询的团长参数封装
+     * @param groupBuyingOrganizer 需要查询的团长参数封装,允许为空
      * @return Result
      * @author sheep669
      * @created at 2022/8/7 13:48
@@ -55,11 +56,13 @@ public class GroupBuyingOrganizerController {
     public Result searchOrGetGroupBuyingOrganizerList(@PathVariable int current,
                                                       @PathVariable int size,
                                                       @RequestBody(required = false) GroupBuyingOrganizer groupBuyingOrganizer) {
-        //校验号码是否属于合法格式
-        if (StrUtil.isNotBlank(groupBuyingOrganizer.getPhoneNumber())) {
-            Map<String, Object> valid = ValidatorUtil.valid(groupBuyingOrganizer);
-            if (valid.size() > 0) {
-                return Result.error().data(valid);
+        //校验号码是否属于合法格式  groupBuyingOrganizer允许为空 先判空
+        if (ObjectUtil.isNotNull(groupBuyingOrganizer)) {
+            if (StrUtil.isNotBlank(groupBuyingOrganizer.getPhoneNumber())) {
+                Map<String, Object> valid = ValidatorUtil.valid(groupBuyingOrganizer);
+                if (valid.size() > 0) {
+                    return Result.error().data(valid);
+                }
             }
         }
         Page<GroupBuyingOrganizer> pageGroupBuyingOrganizerList = groupBuyingOrganizerService.searchOrGetGroupBuyingOrganizerList(current, size, groupBuyingOrganizer);
@@ -144,6 +147,51 @@ public class GroupBuyingOrganizerController {
             }
         }
         int i = groupBuyingOrganizerService.addGroupBuyingOrganizer(groupBuyingOrganizer);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 确认团长审核
+     *
+     * @param id 团长id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/15 17:28
+     */
+    @ApiOperation(value = "确认团长审核")
+    @PostMapping("/groupBuyingOrganizer/audit/confirm/{id}")
+    public Result confirmAudit(@PathVariable Long id) {
+        int i = groupBuyingOrganizerService.confirmAudit(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 通过审核
+     *
+     * @param id 团长id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/15 17:28
+     */
+    @ApiOperation(value = "通过团长审核")
+    @PostMapping("/groupBuyingOrganizer/audit/approve/{id}")
+    public Result approveAudit(@PathVariable Long id) {
+        int i = groupBuyingOrganizerService.approveAudit(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 拒绝审核
+     *
+     * @param id 团长id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/15 17:28
+     */
+    @ApiOperation(value = "拒绝团长审核")
+    @PostMapping("/groupBuyingOrganizer/audit/reject/{id}")
+    public Result rejectAudit(@PathVariable Long id) {
+        int i = groupBuyingOrganizerService.rejectAudit(id);
         return i > 0 ? Result.ok() : Result.error();
     }
 }
