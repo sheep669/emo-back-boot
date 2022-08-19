@@ -1,5 +1,6 @@
 package com.sheep.emo.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.Map;
  * @created at 2022/7/29 8:34
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Result {
     private Integer code;
 

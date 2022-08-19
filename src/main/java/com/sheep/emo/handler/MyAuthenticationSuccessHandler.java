@@ -23,11 +23,13 @@ public class MyAuthenticationSuccessHandler extends JsonResult implements Authen
     @Autowired
     private RedisUtil redisUtil;
 
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        Result result = Result.ok().message("登录成功").data("token", redisUtil.getValueByKey(authentication.getName()));
+        Object userinfo = redisUtil.getValueByKey(authentication.getName());
+        Result result = Result.ok().message("登录成功").data("token", userinfo);
         this.WriteJSON(request, response, result);
     }
 }

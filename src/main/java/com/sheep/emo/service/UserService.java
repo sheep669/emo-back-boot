@@ -1,14 +1,13 @@
-package com.sheep.emo.mapper;
+package com.sheep.emo.service;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sheep.emo.pojo.User;
 
 /**
  * @author : sheep669
  * @description : TODO
- * @created at 2022/7/17 15:30
+ * @created at 2022/8/18 21:11
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface UserService {
     /**
      * 获取个人资料页
      *
@@ -19,3 +18,4 @@ public interface UserMapper extends BaseMapper<User> {
      */
     User findPersonalInformation(String username);
 }
+

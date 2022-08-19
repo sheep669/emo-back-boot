@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.sheep.emo.constant.Constant;
 import com.sheep.emo.mapper.UserMapper;
 import com.sheep.emo.pojo.User;
+import com.sheep.emo.service.UserService;
 import com.sheep.emo.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,6 +32,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private UserMapper userMapper;
     @Autowired
     private RedisUtil redisUtil;
+    @Autowired
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -40,8 +43,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if (ObjectUtil.isNull(user)) {
             throw new UsernameNotFoundException("用户不存在！");
         } else {
+            User userInfo = userService.findPersonalInformation(username);
             Map<String, Object> map = new HashMap<>(16);
-            map.put("userInfo", user.getUsername());
+            map.put("userInfo", userInfo);
             String token = JWTUtil.createToken(map, Constant.TOKEN_VERIFY_KEY.getBytes());
             redisUtil.setValueByKey(user.getUsername(), token);
             redisUtil.setValueByKey("role", user.getRole());

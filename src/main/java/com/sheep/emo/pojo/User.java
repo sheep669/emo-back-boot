@@ -39,10 +39,6 @@ public class User implements Serializable {
      */
     private String role;
     /**
-     * 昵称
-     */
-    private String nickname;
-    /**
      * 用户类型
      */
     private String userType;
@@ -60,18 +56,18 @@ public class User implements Serializable {
      */
     private BigDecimal accountBalance;
     /**
-     * 所在地区
+     * 居住地
      */
     private String location;
+    /**
+     * 联系地址
+     */
+    private String address;
     /**
      * 注册时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date registerTime;
-    /**
-     * 推荐人
-     */
-    private String referrer;
     /**
      * 状态 1:启用 2:禁用 默认值:1
      */

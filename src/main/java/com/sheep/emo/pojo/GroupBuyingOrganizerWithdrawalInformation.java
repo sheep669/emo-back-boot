@@ -60,6 +60,19 @@ public class GroupBuyingOrganizerWithdrawalInformation implements Serializable {
      */
     private BigDecimal drawnMoney;
     /**
+     * 到账类型
+     */
+    private String arrivalAmountType;
+    /**
+     * 账号信息
+     */
+    private String accountInformation;
+    /**
+     * 申请日期
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date applyTime;
+    /**
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
