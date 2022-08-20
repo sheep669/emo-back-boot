@@ -23,7 +23,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class Order implements Serializable {
+public class Orders implements Serializable {
     private static final long serialVersionUID = -22171314771446313L;
     /**
      * 主键id
