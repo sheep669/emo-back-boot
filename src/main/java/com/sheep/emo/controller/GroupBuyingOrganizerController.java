@@ -98,7 +98,7 @@ public class GroupBuyingOrganizerController {
      * @created at 2022/8/1 10:32
      */
     @ApiOperation(value = "根据id批量删除指定团长")
-    @PostMapping("/groupBuyingOrganizer/deleteBatch")
+    @PostMapping("/groupBuyingOrganizers/deleteBatch")
     public Result deleteGroupBuyingOrganizerBatchByIds(@RequestBody Long[] ids) {
         int i = groupBuyingOrganizerService.deleteGroupBuyingOrganizerBatchByIds(ids);
         return i > 0 ? Result.ok() : Result.error();

@@ -90,7 +90,7 @@ public class GoodsLabelController {
      * @created at 2022/8/1 10:32
      */
     @ApiOperation(value = "根据id批量删除指定商品标签")
-    @PostMapping("/goodsLabel/deleteBatch")
+    @PostMapping("/goodsLabels/deleteBatch")
     public Result deleteGoodsLabelBatchByIds(@RequestBody Long[] ids) {
         int i = goodsLabelService.deleteGoodsLabelBatchByIds(ids);
         return i > 0 ? Result.ok() : Result.error();

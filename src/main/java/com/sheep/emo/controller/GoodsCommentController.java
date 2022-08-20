@@ -90,7 +90,7 @@ public class GoodsCommentController {
      * @created at 2022/8/1 10:32
      */
     @ApiOperation(value = "根据id批量删除指定商品评论")
-    @PostMapping("/goodsComment/deleteBatch")
+    @PostMapping("/goodsComments/deleteBatch")
     public Result deleteGoodsCommentBatchByIds(@RequestBody Long[] ids) {
         int i = goodsCommentService.deleteGoodsCommentBatchByIds(ids);
         return i > 0 ? Result.ok() : Result.error();

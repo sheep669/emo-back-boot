@@ -90,7 +90,7 @@ public class GoodsCategoryController {
      * @created at 2022/8/1 10:32
      */
     @ApiOperation(value = "根据id批量删除指定产品分类")
-    @PostMapping("/goodsCategory/deleteBatch")
+    @PostMapping("/goodsCategories/deleteBatch")
     public Result deleteGoodsCategoryBatchByIds(@RequestBody Long[] ids) {
         int i = goodsCategoryService.deleteGoodsCategoryBatchByIds(ids);
         return i > 0 ? Result.ok() : Result.error();
