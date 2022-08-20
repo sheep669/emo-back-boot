@@ -194,5 +194,20 @@ public class GroupBuyingOrganizerController {
         int i = groupBuyingOrganizerService.rejectAudit(id);
         return i > 0 ? Result.ok() : Result.error();
     }
+
+    /**
+     * 重新审核
+     *
+     * @param id 团长id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/20 10:05
+     */
+    @ApiOperation(value = "重新审核")
+    @PostMapping("/groupBuyingOrganizer/audit/reAudit/{id}")
+    public Result reAudit(@PathVariable Long id) {
+        int i = groupBuyingOrganizerService.reAudit(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
 }
 

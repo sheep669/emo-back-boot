@@ -31,7 +31,7 @@ public enum ResultCode {
     USER_ACCOUNT_DISABLE(2005, "账号不可用"),
     USER_ACCOUNT_LOCKED(2006, "账号被锁定"),
     USER_ACCOUNT_NOT_EXIST(2007, "账号不存在"),
-    USER_ACCOUNT_ALREADY_EXIST(2008, "账号已存在"),
+    USER_ACCOUNT_ALREADY_EXIST(2008, "账号已存在,请更换用户名"),
     USER_ACCOUNT_USE_BY_OTHERS(2009, "已经在另一台机器登录,无需重复登陆"),
 
     /* 业务错误 */

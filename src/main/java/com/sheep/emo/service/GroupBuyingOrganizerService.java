@@ -96,6 +96,14 @@ public interface GroupBuyingOrganizerService {
      */
     int rejectAudit(Long id);
 
-
+    /**
+     * 重新审核
+     *
+     * @param id 团长id
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/20 10:06
+     */
+    int reAudit(Long id);
 }
 

@@ -120,5 +120,13 @@ public class GroupBuyingOrganizerServiceImpl implements GroupBuyingOrganizerServ
         updateWrapper.set("audit_status", "4");
         return groupBuyingOrganizerMapper.update(null, updateWrapper);
     }
+
+    @Override
+    public int reAudit(Long id) {
+        UpdateWrapper<GroupBuyingOrganizer> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("audit_status", "1");
+        return groupBuyingOrganizerMapper.update(null, updateWrapper);
+    }
 }
 

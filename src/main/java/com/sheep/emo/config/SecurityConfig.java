@@ -159,7 +159,7 @@ public class SecurityConfig {
                 // .antMatchers("/get_menu_data").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/logout").permitAll()
-                .anyRequest().authenticated()
+                // .anyRequest().authenticated()
                 .and().addFilterBefore(captchaVerifyFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtTokenVerifyFilter, CaptchaVerifyFilter.class)
                 .addFilterBefore(accountVerifyFilter, JwtTokenVerifyFilter.class)
