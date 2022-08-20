@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,55 +28,67 @@ public class CompeteOrder implements Serializable {
     /**
      * 主键id
      */
+    @ApiModelProperty(value = "主键id")
     @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
      * 提货码
      */
+    @ApiModelProperty(value = "提货码")
     private Long takeGoodsCode;
     /**
      * 团长店铺
      */
+    @ApiModelProperty(value = "团长店铺")
     private String groupBuyingOrganizerStore;
     /**
      * 团长姓名
      */
+    @ApiModelProperty(value = "团长姓名")
     private String groupBuyingOrganizerName;
     /**
      * 商品名称
      */
+    @ApiModelProperty(value = "商品名称")
     private String goodsName;
     /**
      * 订单金额
      */
+    @ApiModelProperty(value = "订单金额")
     private BigDecimal orderAmount;
     /**
      * 收货信息
      */
+    @ApiModelProperty(value = "收货信息")
     private String goodsReceivingInformation;
     /**
      * 订单备注
      */
+    @ApiModelProperty(value = "订单备注")
     private String orderRemarks;
     /**
      * 下单时间
      */
+    @ApiModelProperty(value = "下单时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date purchasingTime;
     /**
      * 提货时间
      */
+    @ApiModelProperty(value = "提货时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date takeGoodsTime;
     /**
      * 创建时间
      */
+    @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     /**
      * 更新时间
      */
+    @ApiModelProperty(value = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 }

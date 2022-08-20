@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,29 +28,35 @@ public class DeliveryRoutes implements Serializable {
     /**
      * 主键id
      */
+    @ApiModelProperty(value = "主键id")
     @TableId(type = IdType.AUTO)
     private Long id;
     /**
      * 路线名称
      */
+    @ApiModelProperty(value = "路线名称")
     private String deliveryRoute;
     /**
      * 配送员
      */
+    @ApiModelProperty(value = "配送员")
     private String deliveryMan;
     /**
      * 联系电话
      */
+    @ApiModelProperty(value = "联系电话")
     @Pattern(regexp = "^1(3[0-9]|5[0-3,5-9]|7[1-3,5-8]|8[0-9])\\d{8}$", message = "手机号不合法")
     private String phoneNumber;
     /**
      * 创建时间
      */
+    @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     /**
      * 更新时间
      */
+    @ApiModelProperty(value = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 }

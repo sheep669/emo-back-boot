@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,41 +27,50 @@ public class CommissionSerial implements Serializable {
     /**
      * 主键id
      */
+    @ApiModelProperty(value = "主键id")
     @TableId(type = IdType.AUTO)
     private Long id;
     /**
      * 团长名称
      */
+    @ApiModelProperty(value = "团长名称")
     private String groupBuyingOrganizerName;
     /**
      * 店铺名称
      */
+    @ApiModelProperty(value = "店铺名称")
     private String storeName;
     /**
      * 佣金
      */
+    @ApiModelProperty(value = "佣金")
     private String commission;
     /**
      * 类型
      */
+    @ApiModelProperty(value = "类型")
     private String type;
     /**
      * 产生时间
      */
+    @ApiModelProperty(value = "产生时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date makeTime;
     /**
      * 备注
      */
+    @ApiModelProperty(value = "备注")
     private String remark;
     /**
      * 创建时间
      */
+    @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     /**
      * 更新时间
      */
+    @ApiModelProperty(value = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 }

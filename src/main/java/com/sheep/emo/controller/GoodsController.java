@@ -52,7 +52,7 @@ public class GoodsController {
             @ApiImplicitParam(name = "size", value = "获取几条", dataType = "int", dataTypeClass = int.class),
             @ApiImplicitParam(name = "goods", value = "需要查询的商品参数", dataType = "Goods", dataTypeClass = Goods.class),
     })
-    @PostMapping("/goodss/page/get/{current}/{size}")
+    @PostMapping("/goods/page/get/{current}/{size}")
     public Result searchOrGoodsList(@PathVariable int current,
                                     @PathVariable int size,
                                     @RequestBody(required = false) Goods goods) {

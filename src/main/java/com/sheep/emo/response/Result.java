@@ -13,12 +13,12 @@ import java.util.Map;
  * @created at 2022/7/29 8:34
  */
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Result {
     private Integer code;
 
     private String msg;
 
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Map<String, Object> data = new HashMap<>();
 
     /**

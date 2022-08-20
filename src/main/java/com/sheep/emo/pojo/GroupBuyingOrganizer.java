@@ -21,7 +21,7 @@ import java.util.Date;
  * @author makejava
  * @since 2022-07-28 21:32:20
  */
-@ApiModel(value = "GroupBuyingOrganizer", description = "团长信息")
+@ApiModel(value = "GroupBuyingOrganizer对象", description = "团长信息")
 @JsonIgnoreProperties({"createTime", "updateTime"})
 @Getter
 @Setter

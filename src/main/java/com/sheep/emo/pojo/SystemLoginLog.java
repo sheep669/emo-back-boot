@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -26,33 +27,40 @@ public class SystemLoginLog implements Serializable {
     /**
      * 主键id
      */
+    @ApiModelProperty(value = "主键id")
     @TableId(type = IdType.AUTO)
     private Long id;
     /**
      * 登录时间
      */
+    @ApiModelProperty(value = "登录时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date loginTime;
     /**
      * 用户名
      */
+    @ApiModelProperty(value = "用户名")
     private String username;
     /**
      * 公司
      */
+    @ApiModelProperty(value = "公司")
     private String companyName;
     /**
      * IP地址
      */
+    @ApiModelProperty(value = "IP地址")
     private String ipAddress;
     /**
      * 创建时间
      */
+    @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
     /**
      * 更新时间
      */
+    @ApiModelProperty(value = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
 
