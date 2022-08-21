@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,33 +14,39 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户类型表(UserType)实体类
+ * 会员标签表(MemberLabel)实体类
  *
  * @author makejava
- * @since 2022-07-29 09:18:03
+ * @since 2022-08-21 21:41:39
  */
 @JsonIgnoreProperties({"createTime", "updateTime"})
 @Getter
 @Setter
 @ToString
-public class UserType implements Serializable {
-    private static final long serialVersionUID = -46708324391184706L;
+@ApiModel(value = "MemberLabel对象", description = "会员标签表")
+public class MemberLabel implements Serializable {
+    private static final long serialVersionUID = 276700848500019746L;
     /**
      * 主键id
      */
-    @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "主键id")
+    @TableId(type = IdType.AUTO)
     private Long id;
     /**
-     * 用户类型 1:普通会员 2:超级会员 3:商铺会员 4:团长 5:管理员
+     * 标签名
      */
-    @ApiModelProperty(value = "用户类型 1:普通会员 2:超级会员 3:商铺会员 4:团长 5:管理员")
-    private String userType;
+    @ApiModelProperty(value = "标签名")
+    private String labelName;
     /**
-     * 会员数
+     * 描述
      */
-    @ApiModelProperty(value = "会员数")
-    private Long userNumber;
+    @ApiModelProperty(value = "描述")
+    private String description;
+    /**
+     * 会员id
+     */
+    @ApiModelProperty(value = "会员id")
+    private Long memberId;
     /**
      * 创建时间
      */
@@ -52,5 +59,6 @@ public class UserType implements Serializable {
     @ApiModelProperty(value = "更新时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updateTime;
+
 }
 

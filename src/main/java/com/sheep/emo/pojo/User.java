@@ -44,9 +44,9 @@ public class User implements Serializable {
     @ApiModelProperty(value = "角色")
     private String role;
     /**
-     * 用户类型
+     * 用户类型 1:普通会员 2:超级会员 3:商铺会员 4:团长 5:管理员
      */
-    @ApiModelProperty(value = "用户类型")
+    @ApiModelProperty(value = "用户类型 1:普通会员 2:超级会员 3:商铺会员 4:团长 5:管理员")
     private String userType;
     /**
      * 头像

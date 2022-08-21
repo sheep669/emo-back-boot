@@ -79,6 +79,11 @@ public class GroupBuyingOrganizerWithdrawalInformation implements Serializable {
     @ApiModelProperty(value = "账号信息")
     private String accountInformation;
     /**
+     * 审核状态 1:待审核  2:审核中 3:通过 4:不予通过
+     */
+    @ApiModelProperty(value = "审核状态 1:待审核  2:审核中 3:通过 4:不予通过")
+    private String auditStatus;
+    /**
      * 申请日期
      */
     @ApiModelProperty(value = "申请日期")

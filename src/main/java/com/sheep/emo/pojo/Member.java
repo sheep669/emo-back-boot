@@ -1,6 +1,5 @@
 package com.sheep.emo.pojo;
 
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -12,22 +11,21 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 售后表(AfterSale)实体类
+ * 会员表(Member)实体类
  *
  * @author makejava
- * @since 2022-07-28 21:39:31
+ * @since 2022-08-21 21:41:38
  */
 @JsonIgnoreProperties({"createTime", "updateTime"})
 @Getter
 @Setter
 @ToString
-@ApiModel(value = "AfterSale对象", description = "售后表")
-public class AfterSale implements Serializable {
-    private static final long serialVersionUID = 956620433874986906L;
+@ApiModel(value = "Member对象", description = "会员表")
+public class Member implements Serializable {
+    private static final long serialVersionUID = 694342108241037157L;
     /**
      * 主键id
      */
@@ -35,46 +33,31 @@ public class AfterSale implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
     /**
-     * 店铺名称
+     * 会员名字
      */
-    @ApiModelProperty(value = "店铺名称")
-    private String storeName;
+    @ApiModelProperty(value = "会员名字")
+    private String username;
     /**
-     * 商品名称
+     * 会员密码
      */
-    @ApiModelProperty(value = "商品名称")
-    private String goodsName;
+    @ApiModelProperty(value = "会员密码")
+    private String password;
     /**
-     * 申请金额
+     * 用户类型 1:vip 2:svip
      */
-    @ApiModelProperty(value = "申请金额")
-    private BigDecimal applyMoney;
+    @ApiModelProperty(value = "用户类型 1:vip 2:svip")
+    private String memberType;
     /**
-     * 退货编号
+     * 会员状态 1：白名单 0：黑名单
      */
-    @ApiModelProperty(value = "退货编号")
-    private Long returnGoodsNumber;
-    /**
-     * 买家姓名
-     */
-    @ApiModelProperty(value = "买家姓名")
-    private String buyerName;
-    /**
-     * 退款说明
-     */
-    @ApiModelProperty(value = "退款说明")
-    private String refundInstruction;
-    /**
-     * 状态  1:已退货 2:已退款
-     */
-    @ApiModelProperty(value = "状态  1:已退货 2:已退款")
+    @ApiModelProperty(value = "会员状态 1：白名单 0：黑名单")
     private String status;
     /**
-     * 申请时间
+     * 有效期 '2099-05-20 20:20:20' 为永不过期
      */
-    @ApiModelProperty(value = "申请时间")
+    @ApiModelProperty(value = "有效期 '2099-05-20 20:20:20' 为永不过期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date applyTime;
+    private Date validTime;
     /**
      * 创建时间
      */
