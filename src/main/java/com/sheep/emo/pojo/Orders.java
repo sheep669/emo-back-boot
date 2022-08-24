@@ -59,7 +59,7 @@ public class Orders implements Serializable {
     /**
      * 订单状态 1:待付款 2:待备货 3:备货中4:配送中 5:待提货 6.已提货(交易完成) 0:已关闭
      */
-    @ApiModelProperty(value = "订单状态 1:待付款 2:待备货 3:备货中4:配送中 5:待提货 6.已提货(交易完成) 0:已关闭")
+    @ApiModelProperty(value = "订单状态<br>1:待付款 2:待备货 <br>3:备货中4:配送中 5:待提货<br>6.已提货(交易完成) 0:已关闭")
     private String orderStatus;
     /**
      * 订单备注

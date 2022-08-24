@@ -94,7 +94,7 @@ public class GroupBuyingOrganizer implements Serializable {
     /**
      * 审核状态 1:待审核  2:审核中 3:通过 4:不予通过
      */
-    @ApiModelProperty(value = "审核状态<br> 1:待审核  2:审核中 3:通过 4:不予通过")
+    @ApiModelProperty(value = "审核状态<br>1:待审核  2:审核中 <br>3:通过 4:不予通过")
     private String auditStatus;
     /**
      * 创建时间

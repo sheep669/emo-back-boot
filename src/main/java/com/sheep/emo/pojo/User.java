@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
@@ -19,7 +21,9 @@ import java.util.Date;
  * @since 2022-07-29 09:52:01
  */
 @JsonIgnoreProperties({"createTime", "updateTime"})
-@Data
+@Getter
+@Setter
+@ToString
 public class User implements Serializable {
     private static final long serialVersionUID = 734502318266104527L;
     /**
@@ -29,9 +33,9 @@ public class User implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
     /**
-     * 用户名
+     * 用户名 长度限制 中文:长度最多5,英文数字长度最多9
      */
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "用户名<br> 长度限制 中文:长度最多5<br>英文数字长度最多9")
     private String username;
     /**
      * 密码
@@ -46,7 +50,7 @@ public class User implements Serializable {
     /**
      * 用户类型 1:普通会员 2:超级会员 3:商铺会员 4:团长 5:管理员
      */
-    @ApiModelProperty(value = "用户类型 1:普通会员 2:超级会员 3:商铺会员 4:团长 5:管理员")
+    @ApiModelProperty(value = "用户类型<br> 1:普通会员 2:超级会员 <br>3:商铺会员 4:团长 5:管理员")
     private String userType;
     /**
      * 头像
@@ -81,9 +85,9 @@ public class User implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date registerTime;
     /**
-     * 状态 1:启用 2:禁用 默认值:1
+     * 状态 1:启用 0:禁用 默认值:1
      */
-    @ApiModelProperty(value = "状态 1:启用 2:禁用 默认值:1")
+    @ApiModelProperty(value = "状态 1:启用 0:禁用 默认值:1")
     private String status;
     /**
      * 创建时间

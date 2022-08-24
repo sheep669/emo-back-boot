@@ -43,9 +43,9 @@ public class MemberLabel implements Serializable {
     @ApiModelProperty(value = "描述")
     private String description;
     /**
-     * 会员id
+     * 标签所属会员id
      */
-    @ApiModelProperty(value = "会员id")
+    @ApiModelProperty(value = "标签所属会员id")
     private Long memberId;
     /**
      * 创建时间

@@ -1,6 +1,5 @@
 package com.sheep.emo.pojo;
 
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -19,7 +18,7 @@ import java.util.Date;
  * 售后表(AfterSale)实体类
  *
  * @author makejava
- * @since 2022-07-28 21:39:31
+ * @since 2022-08-22 20:49:23
  */
 @JsonIgnoreProperties({"createTime", "updateTime"})
 @Getter
@@ -27,13 +26,31 @@ import java.util.Date;
 @ToString
 @ApiModel(value = "AfterSale对象", description = "售后表")
 public class AfterSale implements Serializable {
-    private static final long serialVersionUID = 956620433874986906L;
-    /**
-     * 主键id
-     */
+    private static final long serialVersionUID = -36329215745547294L;
+
     @ApiModelProperty(value = "主键id")
     @TableId(type = IdType.AUTO)
     private Long id;
+    /**
+     * 订单号
+     */
+    @ApiModelProperty(value = "订单号")
+    private String orderNo;
+    /**
+     * 订单id
+     */
+    @ApiModelProperty(value = "订单id")
+    private Long orderId;
+    /**
+     * 商品id
+     */
+    @ApiModelProperty(value = "商品id")
+    private Long goodsId;
+    /**
+     * 用户id
+     */
+    @ApiModelProperty(value = "用户id")
+    private Long userId;
     /**
      * 店铺名称
      */
@@ -45,36 +62,62 @@ public class AfterSale implements Serializable {
     @ApiModelProperty(value = "商品名称")
     private String goodsName;
     /**
-     * 申请金额
-     */
-    @ApiModelProperty(value = "申请金额")
-    private BigDecimal applyMoney;
-    /**
-     * 退货编号
-     */
-    @ApiModelProperty(value = "退货编号")
-    private Long returnGoodsNumber;
-    /**
      * 买家姓名
      */
     @ApiModelProperty(value = "买家姓名")
     private String buyerName;
+    /**
+     * 审核状态 1:待审核  2:审核中 3:通过 4:不予通过
+     */
+    @ApiModelProperty(value = "审核状态<br> 1:待审核  2:审核中 3:通过 4:不予通过")
+    private String auditStatus;
+    /**
+     * 业务类型（0退款, 1退货）
+     */
+    @ApiModelProperty(value = "业务类型（0退款, 1退货）")
+    private String orderAfterSaleType;
+    /**
+     * 退款类型（0原路退回, 1退至钱包, 2手动处理）
+     */
+    @ApiModelProperty(value = "退款类型<br>(0原路退回, 1退至钱包, 2手动处理)")
+    private String refundType;
+    /**
+     * 申请原因
+     */
+    @ApiModelProperty(value = "申请原因")
+    private String reason;
+    /**
+     * 退货数量
+     */
+    @ApiModelProperty(value = "退货数量")
+    private Long orderAfterSaleNumber;
+    /**
+     * 退款金额
+     */
+    @ApiModelProperty(value = "退款金额")
+    private BigDecimal price;
     /**
      * 退款说明
      */
     @ApiModelProperty(value = "退款说明")
     private String refundInstruction;
     /**
-     * 状态  1:已退货 2:已退款
+     * 凭证图片
      */
-    @ApiModelProperty(value = "状态  1:已退货 2:已退款")
-    private String status;
+    @ApiModelProperty(value = "凭证图片")
+    private String images;
     /**
      * 申请时间
      */
     @ApiModelProperty(value = "申请时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date applyTime;
+    /**
+     * 退货时间
+     */
+    @ApiModelProperty(value = "退货时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date deliveryTime;
     /**
      * 创建时间
      */

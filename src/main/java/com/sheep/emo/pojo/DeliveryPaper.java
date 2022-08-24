@@ -59,7 +59,7 @@ public class DeliveryPaper implements Serializable {
     /**
      * 配送状态 1:配送中 2:配送到达 3:已签收 0:配送关闭
      */
-    @ApiModelProperty(value = "配送状态 1:配送中 2:配送到达 3:已签收 0:配送关闭")
+    @ApiModelProperty(value = "配送状态<br> 1:配送中 2:配送到达<br> 3:已签收 0:配送关闭")
     private String deliveryStatus;
     /**
      * 配送时间

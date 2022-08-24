@@ -10,21 +10,20 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 佣金流水表(CommissionSerial)实体类
+ * 会员优惠权限表(MemberDiscountPrivilege)实体类
  *
  * @author makejava
- * @since 2022-07-28 21:39:31
+ * @since 2022-08-22 10:57:32
  */
 @JsonIgnoreProperties({"createTime", "updateTime"})
 @Getter
 @Setter
 @ToString
-public class CommissionSerial implements Serializable {
-    private static final long serialVersionUID = 446334512438682800L;
+public class MemberDiscountPrivilege implements Serializable {
+    private static final long serialVersionUID = -93060245691584020L;
     /**
      * 主键id
      */
@@ -32,36 +31,20 @@ public class CommissionSerial implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
     /**
-     * 团长名称
+     * 优惠类型
      */
-    @ApiModelProperty(value = "团长名称")
-    private String groupBuyingOrganizerName;
+    @ApiModelProperty(value = "优惠类型")
+    private String discountType;
     /**
-     * 店铺名称
+     * 标签所属会员id
      */
-    @ApiModelProperty(value = "店铺名称")
-    private String storeName;
+    @ApiModelProperty(value = "标签所属会员id")
+    private Long memberId;
     /**
-     * 佣金
+     * 状态 1:生效 2:失效 3:已结束
      */
-    @ApiModelProperty(value = "佣金")
-    private BigDecimal commission;
-    /**
-     * 类型
-     */
-    @ApiModelProperty(value = "类型")
-    private String type;
-    /**
-     * 产生时间
-     */
-    @ApiModelProperty(value = "产生时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date makeTime;
-    /**
-     * 备注
-     */
-    @ApiModelProperty(value = "备注")
-    private String remark;
+    @ApiModelProperty(value = "状态 1:生效 2:失效 3:已结束")
+    private String status;
     /**
      * 创建时间
      */
