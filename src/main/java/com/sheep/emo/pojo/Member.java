@@ -55,7 +55,7 @@ public class Member implements Serializable {
     /**
      * 有效期 '2099-05-20 20:20:20' 为永不过期
      */
-    @ApiModelProperty(value = "有效期 '2099-05-20 20:20:20' 为永不过期")
+    @ApiModelProperty(value = "有效期 '9999-09-09 09:09:09' 为永不过期")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date validTime;
     /**
