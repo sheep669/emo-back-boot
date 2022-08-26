@@ -5,6 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.mapper.GoodsCommentMapper;
 import com.sheep.emo.pojo.GoodsComment;
@@ -83,5 +84,36 @@ public class GoodsCommentServiceImpl implements GoodsCommentService {
         return goodsCommentMapper.insert(goodsComment);
     }
 
+    @Override
+    public int confirmAudit(Long id) {
+        UpdateWrapper<GoodsComment> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("audit_status", "2");
+        return goodsCommentMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public int approveAudit(Long id) {
+        UpdateWrapper<GoodsComment> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("audit_status", "3");
+        return goodsCommentMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public int rejectAudit(Long id) {
+        UpdateWrapper<GoodsComment> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("audit_status", "4");
+        return goodsCommentMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public int reAudit(Long id) {
+        UpdateWrapper<GoodsComment> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("audit_status", "1");
+        return goodsCommentMapper.update(null, updateWrapper);
+    }
 }
 

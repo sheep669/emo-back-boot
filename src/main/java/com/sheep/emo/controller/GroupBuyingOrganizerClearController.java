@@ -130,4 +130,19 @@ public class GroupBuyingOrganizerClearController {
         return i > 0 ? Result.ok() : Result.error();
     }
 
+    /**
+     * 团长结算
+     *
+     * @param id 团长id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/20 10:05
+     */
+    @ApiOperation(value = "团长结算")
+    @PostMapping("/groupBuyingOrganizer/doPayCalculation/{id}")
+    public Result doPayCalculation(@PathVariable Long id) {
+        int i = groupBuyingOrganizerClearService.doPayCalculation(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
 }

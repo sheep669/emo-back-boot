@@ -130,4 +130,65 @@ public class GoodsCommentController {
         return i > 0 ? Result.ok() : Result.error();
     }
 
+    /**
+     * 确认商品评论信息审核
+     *
+     * @param id 商品评论id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/15 17:28
+     */
+    @ApiOperation(value = "确认商品评论审核")
+    @PostMapping("/goodsComment/audit/confirm/{id}")
+    public Result confirmAudit(@PathVariable Long id) {
+        int i = goodsCommentService.confirmAudit(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 通过审核
+     *
+     * @param id 商品评论id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/15 17:28
+     */
+    @ApiOperation(value = "通过商品评论审核")
+    @PostMapping("/goodsComment/audit/approve/{id}")
+    public Result approveAudit(@PathVariable Long id) {
+        int i = goodsCommentService.approveAudit(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 拒绝审核
+     *
+     * @param id 商品评论id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/15 17:28
+     */
+    @ApiOperation(value = "拒绝商品评论审核")
+    @PostMapping("/goodsComment/audit/reject/{id}")
+    public Result rejectAudit(@PathVariable Long id) {
+        int i = goodsCommentService.rejectAudit(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 重新审核
+     *
+     * @param id 商品评论id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/20 10:05
+     */
+    @ApiOperation(value = "重新审核")
+    @PostMapping("/goodsComment/audit/reAudit/{id}")
+    public Result reAudit(@PathVariable Long id) {
+        int i = goodsCommentService.reAudit(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package com.sheep.emo.filter;
 
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.sheep.emo.constant.Constant;
 import com.sheep.emo.response.Result;
@@ -32,15 +33,21 @@ public class CaptchaVerifyFilter extends OncePerRequestFilter {
         if (request.getServletPath().equals(Constant.LOGIN_URL) && request.getMethod().equalsIgnoreCase(Constant.POST_REQUEST_METHOD)) {
             //校验验证码
             String pvc = request.getParameter("verCode");
-            String rvc = (String) redisUtil.getValueByKey(request.getSession().getId());
-            if (pvc.equals(rvc)) {
-                redisUtil.delete(request.getSession().getId());
-                //放行
-                filterChain.doFilter(request, response);
-            } else {
+            if (StrUtil.isBlank(pvc)) {
                 // 响应验证码错误到前端
-                Result result = Result.error(ResultCode.VERIFY_CODE_FAIL);
+                Result result = Result.error(ResultCode.VERIFY_IS_BLANK);
                 response.getWriter().write(JSONUtil.toJsonStr(result));
+            } else {
+                String rvc = (String) redisUtil.getValueByKey(request.getSession().getId());
+                if (pvc.equals(rvc)) {
+                    redisUtil.delete(request.getSession().getId());
+                    //放行
+                    filterChain.doFilter(request, response);
+                } else {
+                    // 响应验证码错误到前端
+                    Result result = Result.error(ResultCode.VERIFY_CODE_FAIL);
+                    response.getWriter().write(JSONUtil.toJsonStr(result));
+                }
             }
         } else {
             filterChain.doFilter(request, response);

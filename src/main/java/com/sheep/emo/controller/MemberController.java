@@ -130,4 +130,34 @@ public class MemberController {
         return i > 0 ? Result.ok() : Result.error();
     }
 
+    /**
+     * 加入黑名单
+     *
+     * @param id 会员id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/20 10:05
+     */
+    @ApiOperation(value = "加入黑名单")
+    @PostMapping("/member/addBlacklist/{id}")
+    public Result addBlacklist(@PathVariable Long id) {
+        int i = memberService.addBlacklist(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 移出黑名单
+     *
+     * @param id 会员id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/8/20 10:05
+     */
+    @ApiOperation(value = "移出黑名单")
+    @PostMapping("/member/removeBlacklist/{id}")
+    public Result removeBlacklist(@PathVariable Long id) {
+        int i = memberService.removeBlacklist(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
 }

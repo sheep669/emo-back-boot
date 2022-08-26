@@ -5,6 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.mapper.MemberMapper;
 import com.sheep.emo.pojo.Member;
@@ -46,8 +47,8 @@ public class MemberServiceImpl implements MemberService {
             if (StrUtil.isNotBlank(member.getMemberType())) {
                 queryWrapper.eq("member_type", member.getMemberType());
             }
-            if (StrUtil.isNotBlank(member.getStatus())) {
-                queryWrapper.eq("status", member.getStatus());
+            if (StrUtil.isNotBlank(member.getMemberStatus())) {
+                queryWrapper.eq("member_status", member.getMemberStatus());
             }
             if (ObjectUtil.isNotNull(member.getValidTime())) {
                 queryWrapper.eq("valid_time", member.getValidTime());
@@ -78,6 +79,22 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int addMember(Member member) {
         return memberMapper.insert(member);
+    }
+
+    @Override
+    public int addBlacklist(Long id) {
+        UpdateWrapper<Member> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("member_status", "0");
+        return memberMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public int removeBlacklist(Long id) {
+        UpdateWrapper<Member> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("member_status", "1");
+        return memberMapper.update(null, updateWrapper);
     }
 
 }

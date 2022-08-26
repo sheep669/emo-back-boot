@@ -68,5 +68,24 @@ public interface MemberService {
      */
     int addMember(Member member);
 
+    /**
+     * 加入黑名单
+     *
+     * @param id 会员id
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/25 18:23
+     */
+    int addBlacklist(Long id);
+
+    /**
+     * 移出黑名单
+     *
+     * @param id 会员id
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/25 18:23
+     */
+    int removeBlacklist(Long id);
 }
 

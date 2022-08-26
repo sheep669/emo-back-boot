@@ -43,8 +43,8 @@ public class MemberDiscountPrivilegeServiceImpl implements MemberDiscountPrivile
             if (ObjectUtil.isNotNull(memberDiscountPrivilege.getMemberId()) && memberDiscountPrivilege.getMemberId() != 0) {
                 queryWrapper.eq("member_id", memberDiscountPrivilege.getMemberId());
             }
-            if (StrUtil.isNotBlank(memberDiscountPrivilege.getStatus())) {
-                queryWrapper.eq("status", memberDiscountPrivilege.getStatus());
+            if (StrUtil.isNotBlank(memberDiscountPrivilege.getMemberValidStatus())) {
+                queryWrapper.eq("member_valid_status", memberDiscountPrivilege.getMemberValidStatus());
             }
             return memberDiscountPrivilegeMapper.selectPage(page, queryWrapper);
         }

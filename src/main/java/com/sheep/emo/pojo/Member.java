@@ -51,7 +51,7 @@ public class Member implements Serializable {
      * 会员状态 1：白名单 0：黑名单
      */
     @ApiModelProperty(value = "会员状态 1：白名单 0：黑名单")
-    private String status;
+    private String memberStatus;
     /**
      * 有效期 '2099-05-20 20:20:20' 为永不过期
      */

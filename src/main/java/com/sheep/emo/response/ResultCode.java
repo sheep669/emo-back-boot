@@ -22,6 +22,7 @@ public enum ResultCode {
     TOKEN_IS_BLANK(1005, "Token为空"),
     TOKEN_IS_EXPIRED(1006, "Token已失效"),
     VERIFY_CODE_FAIL(1007, "验证码错误"),
+    VERIFY_IS_BLANK(1008, "验证码不能为空"),
 
     /* 用户错误 */
     USER_NOT_LOGIN(2001, "用户未登录"),

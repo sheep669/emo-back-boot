@@ -68,5 +68,46 @@ public interface GoodsCommentService {
      */
     int addGoodsComment(GoodsComment goodsComment);
 
+    /**
+     * 确认商品评论信息审核
+     *
+     * @param id 商品评论id
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/15 17:47
+     */
+    int confirmAudit(Long id);
+
+    /**
+     * 通过审核
+     *
+     * @param id 商品评论id
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/16 19:54
+     */
+    int approveAudit(Long id);
+
+
+    /**
+     * 拒绝审核
+     *
+     * @param id 商品评论id
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/16 19:55
+     */
+    int rejectAudit(Long id);
+
+    /**
+     * 重新审核
+     *
+     * @param id 商品评论id
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/20 10:06
+     */
+    int reAudit(Long id);
+
 }
 

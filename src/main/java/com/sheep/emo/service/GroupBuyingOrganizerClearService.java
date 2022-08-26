@@ -68,5 +68,14 @@ public interface GroupBuyingOrganizerClearService {
      */
     int addGroupBuyingOrganizerClear(GroupBuyingOrganizerClear groupBuyingOrganizerClear);
 
+    /**
+     * 结算
+     *
+     * @param id 团长结算id(
+     * @return int
+     * @author sheep669
+     * @created at 2022/8/25 15:02
+     */
+    int doPayCalculation(Long id);
 }
 

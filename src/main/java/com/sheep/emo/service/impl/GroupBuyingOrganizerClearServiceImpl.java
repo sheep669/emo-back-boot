@@ -5,6 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.mapper.GroupBuyingOrganizerClearMapper;
 import com.sheep.emo.pojo.GroupBuyingOrganizerClear;
@@ -82,6 +83,19 @@ public class GroupBuyingOrganizerClearServiceImpl implements GroupBuyingOrganize
     @Override
     public int addGroupBuyingOrganizerClear(GroupBuyingOrganizerClear groupBuyingOrganizerClear) {
         return groupBuyingOrganizerClearMapper.insert(groupBuyingOrganizerClear);
+    }
+
+    @Override
+    public int doPayCalculation(Long id) {
+        GroupBuyingOrganizerClear groupBuyingOrganizerClear = groupBuyingOrganizerClearMapper.selectById(id);
+        BigDecimal unbalancedCommission = groupBuyingOrganizerClear.getUnbalancedCommission();
+        BigDecimal balancedCommission = groupBuyingOrganizerClear.getBalancedCommission();
+        BigDecimal sum = balancedCommission.add(unbalancedCommission);
+        UpdateWrapper<GroupBuyingOrganizerClear> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", id);
+        updateWrapper.set("balanced_commission", sum);
+        updateWrapper.set("unbalanced_commission", 0);
+        return groupBuyingOrganizerClearMapper.update(null, updateWrapper);
     }
 
 }

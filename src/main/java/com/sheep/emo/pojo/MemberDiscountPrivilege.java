@@ -41,10 +41,10 @@ public class MemberDiscountPrivilege implements Serializable {
     @ApiModelProperty(value = "标签所属会员id")
     private Long memberId;
     /**
-     * 状态 1:生效 2:失效 3:已结束
+     * 会员优惠有效状态 1:生效 2:失效 3:已结束
      */
-    @ApiModelProperty(value = "状态 1:生效 2:失效 3:已结束")
-    private String status;
+    @ApiModelProperty(value = "会员优惠有效状态 1:生效 2:失效 3:已结束")
+    private String memberValidStatus;
     /**
      * 创建时间
      */
