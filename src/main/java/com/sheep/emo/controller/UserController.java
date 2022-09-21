@@ -1,17 +1,16 @@
 package com.sheep.emo.controller;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.service.UserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 操作用户的控制器
@@ -32,6 +31,8 @@ import java.util.Map;
 })
 public class UserController {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserService userService;
@@ -108,6 +109,11 @@ public class UserController {
     @PostMapping("/user/update")
     public Result updateUserById(@RequestBody User user) {
         user.setUpdateTime(new Date(System.currentTimeMillis()));
+        //明文加密
+        if (StrUtil.isNotBlank(user.getPassword())) {
+            String encode = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encode);
+        }
         //校验 TODO 如有请写
         int i = userService.updateUserById(user, user.getId());
         return i > 0 ? Result.ok() : Result.error();
@@ -125,6 +131,11 @@ public class UserController {
     @ApiOperation(value = "添加用户")
     @PostMapping("/user/add")
     public Result addUser(@RequestBody User user) {
+        //明文加密
+        if (StrUtil.isNotBlank(user.getPassword())) {
+            String encode = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encode);
+        }
         //校验 TODO 如有请写
         int i = userService.addUser(user);
         return i > 0 ? Result.ok() : Result.error();

@@ -31,14 +31,19 @@ public class UserType implements Serializable {
     @ApiModelProperty(value = "主键id")
     private Long id;
     /**
-     * 用户类型 1:普通会员 2:超级会员 3:商铺会员 4:团长 5:管理员
+     * 用户类型名称
      */
-    @ApiModelProperty(value = "用户类型<br>1:普通会员 2:超级会员 <br>3:商铺会员 4:团长 5:管理员")
-    private String userType;
+    @ApiModelProperty(value = "用户类型名称")
+    private String userTypeName;
     /**
-     * 会员数
+     * 用户类型所属id
      */
-    @ApiModelProperty(value = "会员数")
+    @ApiModelProperty(value = "用户类型所属id")
+    private Long userId;
+    /**
+     * 用户总数
+     */
+    @ApiModelProperty(value = "用户总数")
     private Long userNumber;
     /**
      * 创建时间

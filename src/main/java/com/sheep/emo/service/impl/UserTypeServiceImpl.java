@@ -37,8 +37,11 @@ public class UserTypeServiceImpl implements UserTypeService {
             if (ObjectUtil.isNotNull(userType.getId()) && userType.getId() != 0) {
                 queryWrapper.eq("id", userType.getId());
             }
-            if (StrUtil.isNotBlank(userType.getUserType())) {
-                queryWrapper.eq("user_type", userType.getUserType());
+            if (StrUtil.isNotBlank(userType.getUserTypeName())) {
+                queryWrapper.eq("user_type_name", userType.getUserTypeName());
+            }
+            if (ObjectUtil.isNotNull(userType.getUserId()) && userType.getUserId() != 0) {
+                queryWrapper.eq("user_id", userType.getUserId());
             }
             if (ObjectUtil.isNotNull(userType.getUserNumber()) && userType.getUserNumber() != 0) {
                 queryWrapper.eq("user_number", userType.getUserNumber());
