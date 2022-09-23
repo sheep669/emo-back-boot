@@ -72,6 +72,5 @@ public interface UserService {
      * @created at 2022/8/1 10:28
      */
     int addUser(User user);
-
 }
 

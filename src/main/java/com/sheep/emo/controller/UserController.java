@@ -10,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 操作用户的控制器
@@ -140,5 +143,4 @@ public class UserController {
         int i = userService.addUser(user);
         return i > 0 ? Result.ok() : Result.error();
     }
-
 }
