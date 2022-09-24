@@ -2,8 +2,13 @@ package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.AfterSale;
+import com.sheep.emo.pojo.SystemOperateLog;
+import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.service.AfterSaleService;
+import com.sheep.emo.service.SystemOperateLogService;
+import com.sheep.emo.service.UserService;
+import com.sheep.emo.utils.RedisUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,6 +41,15 @@ public class AfterSaleController {
 
     @Autowired
     private AfterSaleService afterSaleService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private SystemOperateLogService systemOperateLogService;
 
     /**
      * 分页获得售后列表或者查询并分页获得售后列表
@@ -79,7 +93,27 @@ public class AfterSaleController {
     @GetMapping("/afterSale/delete/{id}")
     public Result deleteAfterSaleById(@PathVariable Long id) {
         int i = afterSaleService.deleteAfterSaleById(id);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("删除", "售后", "1");
+            return Result.ok();
+        } else {
+            addLog("删除", "售后", "0");
+            return Result.error();
+        }
+    }
+
+    private void addLog(String operateLog, String operateModule, String operateResult) {
+        User user = userService.findUserByUsername((String) redisUtil.getValueByKey("username"));
+        SystemOperateLog systemOperateLog = new SystemOperateLog();
+        systemOperateLog.setOperatorName(user.getUsername());
+        systemOperateLog.setOperateTime(new Date(System.currentTimeMillis()));
+        systemOperateLog.setOperateLog(operateLog);
+        systemOperateLog.setOperateModule(operateModule);
+        systemOperateLog.setOperateResult(operateResult);
+        systemOperateLog.setOperatePhoneNumber(user.getPhoneNumber());
+        systemOperateLog.setOperatorAuthority(user.getRole());
+        systemOperateLog.setCompanyName(user.getUsername());
+        systemOperateLogService.addSystemOperateLog(systemOperateLog);
     }
 
     /**
@@ -94,7 +128,13 @@ public class AfterSaleController {
     @PostMapping("/afterSales/deleteBatch")
     public Result deleteAfterSaleBatchByIds(@RequestBody Long[] ids) {
         int i = afterSaleService.deleteAfterSaleBatchByIds(ids);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("批量删除", "售后", "1");
+            return Result.ok();
+        } else {
+            addLog("批量删除", "售后", "0");
+            return Result.error();
+        }
     }
 
     /**
@@ -112,7 +152,13 @@ public class AfterSaleController {
         afterSale.setUpdateTime(new Date(System.currentTimeMillis()));
         //校验 TODO 如有请写
         int i = afterSaleService.updateAfterSaleById(afterSale, afterSale.getId());
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("更新", "售后", "1");
+            return Result.ok();
+        } else {
+            addLog("更新", "售后", "0");
+            return Result.error();
+        }
     }
 
 
@@ -129,7 +175,13 @@ public class AfterSaleController {
     public Result addAfterSale(@RequestBody AfterSale afterSale) {
         //校验 TODO 如有请写
         int i = afterSaleService.addAfterSale(afterSale);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("添加", "售后", "1");
+            return Result.ok();
+        } else {
+            addLog("添加", "售后", "0");
+            return Result.error();
+        }
     }
 
     /**

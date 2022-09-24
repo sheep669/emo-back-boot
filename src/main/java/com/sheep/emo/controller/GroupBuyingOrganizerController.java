@@ -4,8 +4,13 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.GroupBuyingOrganizer;
+import com.sheep.emo.pojo.SystemOperateLog;
+import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.service.GroupBuyingOrganizerService;
+import com.sheep.emo.service.SystemOperateLogService;
+import com.sheep.emo.service.UserService;
+import com.sheep.emo.utils.RedisUtil;
 import com.sheep.emo.utils.ValidatorUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +40,15 @@ public class GroupBuyingOrganizerController {
 
     @Autowired
     private GroupBuyingOrganizerService groupBuyingOrganizerService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private SystemOperateLogService systemOperateLogService;
 
     /**
      * 分页获得团长列表或者查询并分页获得团长列表
@@ -86,7 +100,27 @@ public class GroupBuyingOrganizerController {
     @GetMapping("/groupBuyingOrganizer/delete/{id}")
     public Result deleteGroupBuyingOrganizerById(@PathVariable Long id) {
         int i = groupBuyingOrganizerService.deleteGroupBuyingOrganizerById(id);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("删除", "团长", "1");
+            return Result.ok();
+        } else {
+            addLog("删除", "团长", "0");
+            return Result.error();
+        }
+    }
+
+    private void addLog(String operateLog, String operateModule, String operateResult) {
+        User user = userService.findUserByUsername((String) redisUtil.getValueByKey("username"));
+        SystemOperateLog systemOperateLog = new SystemOperateLog();
+        systemOperateLog.setOperatorName(user.getUsername());
+        systemOperateLog.setOperateTime(new Date(System.currentTimeMillis()));
+        systemOperateLog.setOperateLog(operateLog);
+        systemOperateLog.setOperateModule(operateModule);
+        systemOperateLog.setOperateResult(operateResult);
+        systemOperateLog.setOperatePhoneNumber(user.getPhoneNumber());
+        systemOperateLog.setOperatorAuthority(user.getRole());
+        systemOperateLog.setCompanyName(user.getUsername());
+        systemOperateLogService.addSystemOperateLog(systemOperateLog);
     }
 
     /**
@@ -101,7 +135,13 @@ public class GroupBuyingOrganizerController {
     @PostMapping("/groupBuyingOrganizers/deleteBatch")
     public Result deleteGroupBuyingOrganizerBatchByIds(@RequestBody Long[] ids) {
         int i = groupBuyingOrganizerService.deleteGroupBuyingOrganizerBatchByIds(ids);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("批量删除", "团长","1");
+            return Result.ok();
+        } else {
+            addLog("批量删除", "团长","0");
+            return Result.error();
+        }
     }
 
 
@@ -125,7 +165,13 @@ public class GroupBuyingOrganizerController {
             }
         }
         int i = groupBuyingOrganizerService.updateGroupBuyingOrganizerById(groupBuyingOrganizer, groupBuyingOrganizer.getId());
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("更新","团长", "1");
+            return Result.ok();
+        } else {
+            addLog("更新", "团长","0");
+            return Result.error();
+        }
     }
 
     /**
@@ -147,7 +193,13 @@ public class GroupBuyingOrganizerController {
             }
         }
         int i = groupBuyingOrganizerService.addGroupBuyingOrganizer(groupBuyingOrganizer);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("添加", "团长","1");
+            return Result.ok();
+        } else {
+            addLog("添加", "团长","0");
+            return Result.error();
+        }
     }
 
     /**

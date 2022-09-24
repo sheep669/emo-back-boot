@@ -2,8 +2,13 @@ package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.DealSerial;
+import com.sheep.emo.pojo.SystemOperateLog;
+import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.service.DealSerialService;
+import com.sheep.emo.service.SystemOperateLogService;
+import com.sheep.emo.service.UserService;
+import com.sheep.emo.utils.RedisUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +40,14 @@ public class DealSerialController {
 
     @Autowired
     private DealSerialService dealSerialService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private SystemOperateLogService systemOperateLogService;
 
     /**
      * 分页获得交易流水列表或者查询并分页获得交易流水列表
@@ -78,7 +91,27 @@ public class DealSerialController {
     @GetMapping("/dealSerial/delete/{id}")
     public Result deleteDealSerialById(@PathVariable Long id) {
         int i = dealSerialService.deleteDealSerialById(id);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("删除", "交易流水", "1");
+            return Result.ok();
+        } else {
+            addLog("删除", "交易流水", "0");
+            return Result.error();
+        }
+    }
+
+    private void addLog(String operateLog, String operateModule, String operateResult) {
+        User user = userService.findUserByUsername((String) redisUtil.getValueByKey("username"));
+        SystemOperateLog systemOperateLog = new SystemOperateLog();
+        systemOperateLog.setOperatorName(user.getUsername());
+        systemOperateLog.setOperateTime(new Date(System.currentTimeMillis()));
+        systemOperateLog.setOperateLog(operateLog);
+        systemOperateLog.setOperateModule(operateModule);
+        systemOperateLog.setOperateResult(operateResult);
+        systemOperateLog.setOperatePhoneNumber(user.getPhoneNumber());
+        systemOperateLog.setOperatorAuthority(user.getRole());
+        systemOperateLog.setCompanyName(user.getUsername());
+        systemOperateLogService.addSystemOperateLog(systemOperateLog);
     }
 
     /**
@@ -93,7 +126,13 @@ public class DealSerialController {
     @PostMapping("/dealSerials/deleteBatch")
     public Result deleteDealSerialBatchByIds(@RequestBody Long[] ids) {
         int i = dealSerialService.deleteDealSerialBatchByIds(ids);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("批量删除", "交易流水", "1");
+            return Result.ok();
+        } else {
+            addLog("批量删除", "交易流水", "0");
+            return Result.error();
+        }
     }
 
     /**
@@ -110,7 +149,13 @@ public class DealSerialController {
         dealSerial.setUpdateTime(new Date(System.currentTimeMillis()));
         //校验 TODO 如有请写
         int i = dealSerialService.updateDealSerialById(dealSerial, dealSerial.getId());
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("更新", "交易流水", "1");
+            return Result.ok();
+        } else {
+            addLog("更新", "交易流水", "0");
+            return Result.error();
+        }
     }
 
 
@@ -127,7 +172,13 @@ public class DealSerialController {
     public Result addDealSerial(@RequestBody DealSerial dealSerial) {
         //校验 TODO 如有请写
         int i = dealSerialService.addDealSerial(dealSerial);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("添加", "交易流水", "1");
+            return Result.ok();
+        } else {
+            addLog("添加", "交易流水", "0");
+            return Result.error();
+        }
     }
 
 }

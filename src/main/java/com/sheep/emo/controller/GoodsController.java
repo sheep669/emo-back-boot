@@ -2,8 +2,13 @@ package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.Goods;
+import com.sheep.emo.pojo.SystemOperateLog;
+import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.service.GoodsService;
+import com.sheep.emo.service.SystemOperateLogService;
+import com.sheep.emo.service.UserService;
+import com.sheep.emo.utils.RedisUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +40,16 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private SystemOperateLogService systemOperateLogService;
+
 
     /**
      * 分页获得商品列表或者查询并分页获得商品列表
@@ -78,7 +93,27 @@ public class GoodsController {
     @GetMapping("/goods/delete/{id}")
     public Result deleteGoodsById(@PathVariable Long id) {
         int i = goodsService.deleteGoodsById(id);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("删除", "商品", "1");
+            return Result.ok();
+        } else {
+            addLog("删除", "商品", "0");
+            return Result.error();
+        }
+    }
+
+    private void addLog(String operateLog, String operateModule, String operateResult) {
+        User user = userService.findUserByUsername((String) redisUtil.getValueByKey("username"));
+        SystemOperateLog systemOperateLog = new SystemOperateLog();
+        systemOperateLog.setOperatorName(user.getUsername());
+        systemOperateLog.setOperateTime(new Date(System.currentTimeMillis()));
+        systemOperateLog.setOperateLog(operateLog);
+        systemOperateLog.setOperateModule(operateModule);
+        systemOperateLog.setOperateResult(operateResult);
+        systemOperateLog.setOperatePhoneNumber(user.getPhoneNumber());
+        systemOperateLog.setOperatorAuthority(user.getRole());
+        systemOperateLog.setCompanyName(user.getUsername());
+        systemOperateLogService.addSystemOperateLog(systemOperateLog);
     }
 
     /**
@@ -93,7 +128,13 @@ public class GoodsController {
     @PostMapping("/goods/deleteBatch")
     public Result deleteGoodsBatchByIds(@RequestBody Long[] ids) {
         int i = goodsService.deleteGoodsBatchByIds(ids);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("批量删除", "商品", "1");
+            return Result.ok();
+        } else {
+            addLog("批量删除", "商品", "0");
+            return Result.error();
+        }
     }
 
     /**
@@ -110,7 +151,13 @@ public class GoodsController {
         goods.setUpdateTime(new Date(System.currentTimeMillis()));
         //校验 TODO 如有请写
         int i = goodsService.updateGoodsById(goods, goods.getId());
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("更新", "商品", "1");
+            return Result.ok();
+        } else {
+            addLog("更新", "商品", "0");
+            return Result.error();
+        }
     }
 
 
@@ -127,7 +174,13 @@ public class GoodsController {
     public Result addGoods(@RequestBody Goods goods) {
         //校验 TODO 如有请写
         int i = goodsService.addGoods(goods);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("添加", "商品", "1");
+            return Result.ok();
+        } else {
+            addLog("添加", "商品", "0");
+            return Result.error();
+        }
     }
 
 }

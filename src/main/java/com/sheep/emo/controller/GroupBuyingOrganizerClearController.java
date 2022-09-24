@@ -2,8 +2,13 @@ package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.GroupBuyingOrganizerClear;
+import com.sheep.emo.pojo.SystemOperateLog;
+import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.service.GroupBuyingOrganizerClearService;
+import com.sheep.emo.service.SystemOperateLogService;
+import com.sheep.emo.service.UserService;
+import com.sheep.emo.utils.RedisUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +40,15 @@ public class GroupBuyingOrganizerClearController {
 
     @Autowired
     private GroupBuyingOrganizerClearService groupBuyingOrganizerClearService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private SystemOperateLogService systemOperateLogService;
 
     /**
      * 分页获得团长结算列表或者查询并分页获得团长结算列表
@@ -78,7 +92,27 @@ public class GroupBuyingOrganizerClearController {
     @GetMapping("/groupBuyingOrganizerClear/delete/{id}")
     public Result deleteGroupBuyingOrganizerClearById(@PathVariable Long id) {
         int i = groupBuyingOrganizerClearService.deleteGroupBuyingOrganizerClearById(id);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("删除", "团长结算", "1");
+            return Result.ok();
+        } else {
+            addLog("删除", "团长结算", "0");
+            return Result.error();
+        }
+    }
+
+    private void addLog(String operateLog, String operateModule, String operateResult) {
+        User user = userService.findUserByUsername((String) redisUtil.getValueByKey("username"));
+        SystemOperateLog systemOperateLog = new SystemOperateLog();
+        systemOperateLog.setOperatorName(user.getUsername());
+        systemOperateLog.setOperateTime(new Date(System.currentTimeMillis()));
+        systemOperateLog.setOperateLog(operateLog);
+        systemOperateLog.setOperateModule(operateModule);
+        systemOperateLog.setOperateResult(operateResult);
+        systemOperateLog.setOperatePhoneNumber(user.getPhoneNumber());
+        systemOperateLog.setOperatorAuthority(user.getRole());
+        systemOperateLog.setCompanyName(user.getUsername());
+        systemOperateLogService.addSystemOperateLog(systemOperateLog);
     }
 
     /**
@@ -93,7 +127,13 @@ public class GroupBuyingOrganizerClearController {
     @PostMapping("/groupBuyingOrganizerClears/deleteBatch")
     public Result deleteGroupBuyingOrganizerClearBatchByIds(@RequestBody Long[] ids) {
         int i = groupBuyingOrganizerClearService.deleteGroupBuyingOrganizerClearBatchByIds(ids);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("批量删除", "团长结算", "1");
+            return Result.ok();
+        } else {
+            addLog("批量删除", "团长结算", "0");
+            return Result.error();
+        }
     }
 
     /**
@@ -110,7 +150,13 @@ public class GroupBuyingOrganizerClearController {
         groupBuyingOrganizerClear.setUpdateTime(new Date(System.currentTimeMillis()));
         //校验 TODO 如有请写
         int i = groupBuyingOrganizerClearService.updateGroupBuyingOrganizerClearById(groupBuyingOrganizerClear, groupBuyingOrganizerClear.getId());
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("更新", "团长结算", "1");
+            return Result.ok();
+        } else {
+            addLog("更新", "团长结算", "0");
+            return Result.error();
+        }
     }
 
 
@@ -127,7 +173,13 @@ public class GroupBuyingOrganizerClearController {
     public Result addGroupBuyingOrganizerClear(@RequestBody GroupBuyingOrganizerClear groupBuyingOrganizerClear) {
         //校验 TODO 如有请写
         int i = groupBuyingOrganizerClearService.addGroupBuyingOrganizerClear(groupBuyingOrganizerClear);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("添加", "团长结算", "1");
+            return Result.ok();
+        } else {
+            addLog("添加", "团长结算", "0");
+            return Result.error();
+        }
     }
 
     /**
@@ -142,7 +194,13 @@ public class GroupBuyingOrganizerClearController {
     @PostMapping("/groupBuyingOrganizer/doPayCalculation/{id}")
     public Result doPayCalculation(@PathVariable Long id) {
         int i = groupBuyingOrganizerClearService.doPayCalculation(id);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("结算", "团长结算", "1");
+            return Result.ok();
+        } else {
+            addLog("结算", "团长结算", "0");
+            return Result.error();
+        }
     }
 
 }

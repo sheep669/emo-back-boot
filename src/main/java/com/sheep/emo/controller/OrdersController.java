@@ -2,8 +2,13 @@ package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.Orders;
+import com.sheep.emo.pojo.SystemOperateLog;
+import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.service.OrdersService;
+import com.sheep.emo.service.SystemOperateLogService;
+import com.sheep.emo.service.UserService;
+import com.sheep.emo.utils.RedisUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +40,15 @@ public class OrdersController {
 
     @Autowired
     private OrdersService ordersService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private SystemOperateLogService systemOperateLogService;
 
     /**
      * 分页获得订单列表或者查询并分页获得订单列表
@@ -78,7 +92,27 @@ public class OrdersController {
     @GetMapping("/order/delete/{id}")
     public Result deleteOrdersById(@PathVariable Long id) {
         int i = ordersService.deleteOrdersById(id);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("删除", "订单", "1");
+            return Result.ok();
+        } else {
+            addLog("删除", "订单", "0");
+            return Result.error();
+        }
+    }
+
+    private void addLog(String operateLog, String operateModule, String operateResult) {
+        User user = userService.findUserByUsername((String) redisUtil.getValueByKey("username"));
+        SystemOperateLog systemOperateLog = new SystemOperateLog();
+        systemOperateLog.setOperatorName(user.getUsername());
+        systemOperateLog.setOperateTime(new Date(System.currentTimeMillis()));
+        systemOperateLog.setOperateLog(operateLog);
+        systemOperateLog.setOperateModule(operateModule);
+        systemOperateLog.setOperateResult(operateResult);
+        systemOperateLog.setOperatePhoneNumber(user.getPhoneNumber());
+        systemOperateLog.setOperatorAuthority(user.getRole());
+        systemOperateLog.setCompanyName(user.getUsername());
+        systemOperateLogService.addSystemOperateLog(systemOperateLog);
     }
 
     /**
@@ -93,7 +127,13 @@ public class OrdersController {
     @PostMapping("/orders/deleteBatch")
     public Result deleteOrdersBatchByIds(@RequestBody Long[] ids) {
         int i = ordersService.deleteOrdersBatchByIds(ids);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("批量删除", "订单", "1");
+            return Result.ok();
+        } else {
+            addLog("批量删除", "订单", "0");
+            return Result.error();
+        }
     }
 
     /**
@@ -110,7 +150,13 @@ public class OrdersController {
         orders.setUpdateTime(new Date(System.currentTimeMillis()));
         //校验 TODO 如有请写
         int i = ordersService.updateOrdersById(orders, orders.getId());
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("更新", "订单", "1");
+            return Result.ok();
+        } else {
+            addLog("更新", "订单", "0");
+            return Result.error();
+        }
     }
 
 
@@ -127,7 +173,13 @@ public class OrdersController {
     public Result addOrders(@RequestBody Orders orders) {
         //校验 TODO 如有请写
         int i = ordersService.addOrders(orders);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("添加", "订单", "1");
+            return Result.ok();
+        } else {
+            addLog("添加", "订单", "0");
+            return Result.error();
+        }
     }
 
 }

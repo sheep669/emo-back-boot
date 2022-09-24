@@ -9,6 +9,18 @@ import com.sheep.emo.pojo.User;
  * @created at 2022/8/18 21:11
  */
 public interface UserService {
+
+    /**
+     * 查询一个用户
+     *
+     * @param username  用户名
+     * @return com.sheep.emo.pojo.User
+     * @author sheep669
+     * @created at 2022/9/24 11:38
+     */
+    User findUserByUsername(String username);
+
+
     /**
      * 获取个人资料页
      *

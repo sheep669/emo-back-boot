@@ -18,4 +18,15 @@ public interface UserMapper extends BaseMapper<User> {
      * @created at 2022/8/18 21:10
      */
     User findPersonalInformation(String username);
+
+
+    /**
+     * 查询一个用户
+     *
+     * @param username 用户名
+     * @return com.sheep.emo.pojo.User
+     * @author sheep669
+     * @created at 2022/9/24 11:40
+     */
+    User findUserByUsername(String username);
 }

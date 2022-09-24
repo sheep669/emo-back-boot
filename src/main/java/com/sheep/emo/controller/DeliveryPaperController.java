@@ -2,8 +2,13 @@ package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.DeliveryPaper;
+import com.sheep.emo.pojo.SystemOperateLog;
+import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.service.DeliveryPaperService;
+import com.sheep.emo.service.SystemOperateLogService;
+import com.sheep.emo.service.UserService;
+import com.sheep.emo.utils.RedisUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +40,15 @@ public class DeliveryPaperController {
 
     @Autowired
     private DeliveryPaperService deliveryPaperService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private SystemOperateLogService systemOperateLogService;
 
     /**
      * 分页获得配送单管理列表或者查询并分页获得配送单管理列表
@@ -78,7 +92,27 @@ public class DeliveryPaperController {
     @GetMapping("/deliveryPaper/delete/{id}")
     public Result deleteDeliveryPaperById(@PathVariable Long id) {
         int i = deliveryPaperService.deleteDeliveryPaperById(id);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("删除", "配送单管理", "1");
+            return Result.ok();
+        } else {
+            addLog("删除", "配送单管理", "0");
+            return Result.error();
+        }
+    }
+
+    private void addLog(String operateLog, String operateModule, String operateResult) {
+        User user = userService.findUserByUsername((String) redisUtil.getValueByKey("username"));
+        SystemOperateLog systemOperateLog = new SystemOperateLog();
+        systemOperateLog.setOperatorName(user.getUsername());
+        systemOperateLog.setOperateTime(new Date(System.currentTimeMillis()));
+        systemOperateLog.setOperateLog(operateLog);
+        systemOperateLog.setOperateModule(operateModule);
+        systemOperateLog.setOperateResult(operateResult);
+        systemOperateLog.setOperatePhoneNumber(user.getPhoneNumber());
+        systemOperateLog.setOperatorAuthority(user.getRole());
+        systemOperateLog.setCompanyName(user.getUsername());
+        systemOperateLogService.addSystemOperateLog(systemOperateLog);
     }
 
     /**
@@ -93,7 +127,13 @@ public class DeliveryPaperController {
     @PostMapping("/deliveryPapers/deleteBatch")
     public Result deleteDeliveryPaperBatchByIds(@RequestBody Long[] ids) {
         int i = deliveryPaperService.deleteDeliveryPaperBatchByIds(ids);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("批量删除", "配送单管理", "1");
+            return Result.ok();
+        } else {
+            addLog("批量删除", "配送单管理", "0");
+            return Result.error();
+        }
     }
 
     /**
@@ -110,7 +150,13 @@ public class DeliveryPaperController {
         deliveryPaper.setUpdateTime(new Date(System.currentTimeMillis()));
         //校验 TODO 如有请写
         int i = deliveryPaperService.updateDeliveryPaperById(deliveryPaper, deliveryPaper.getId());
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("更新", "配送单管理", "1");
+            return Result.ok();
+        } else {
+            addLog("更新", "配送单管理", "0");
+            return Result.error();
+        }
     }
 
 
@@ -127,7 +173,13 @@ public class DeliveryPaperController {
     public Result addDeliveryPaper(@RequestBody DeliveryPaper deliveryPaper) {
         //校验 TODO 如有请写
         int i = deliveryPaperService.addDeliveryPaper(deliveryPaper);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("添加", "配送单管理", "1");
+            return Result.ok();
+        } else {
+            addLog("添加", "配送单管理", "0");
+            return Result.error();
+        }
     }
 
 }

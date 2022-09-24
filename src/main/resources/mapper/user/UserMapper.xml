@@ -11,4 +11,15 @@
         FROM `user`
         WHERE username = #{username}
     </select>
+    <select id="findUserByUsername" parameterType="string" resultType="user">
+        SELECT username,
+               phone_number,
+               account_balance,
+               location,
+               user_type,
+               address,
+               role
+        FROM `user`
+        WHERE username = #{username}
+    </select>
 </mapper>

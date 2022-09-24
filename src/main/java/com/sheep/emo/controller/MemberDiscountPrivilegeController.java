@@ -2,8 +2,13 @@ package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.MemberDiscountPrivilege;
+import com.sheep.emo.pojo.SystemOperateLog;
+import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
 import com.sheep.emo.service.MemberDiscountPrivilegeService;
+import com.sheep.emo.service.SystemOperateLogService;
+import com.sheep.emo.service.UserService;
+import com.sheep.emo.utils.RedisUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +40,15 @@ public class MemberDiscountPrivilegeController {
 
     @Autowired
     private MemberDiscountPrivilegeService memberDiscountPrivilegeService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private SystemOperateLogService systemOperateLogService;
 
     /**
      * 分页获得会员优惠权限列表或者查询并分页获得会员优惠权限列表
@@ -78,7 +92,27 @@ public class MemberDiscountPrivilegeController {
     @GetMapping("/memberDiscountPrivilege/delete/{id}")
     public Result deleteMemberDiscountPrivilegeById(@PathVariable Long id) {
         int i = memberDiscountPrivilegeService.deleteMemberDiscountPrivilegeById(id);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("删除", "会员优惠权限", "1");
+            return Result.ok();
+        } else {
+            addLog("删除", "会员优惠权限", "0");
+            return Result.error();
+        }
+    }
+
+    private void addLog(String operateLog, String operateModule, String operateResult) {
+        User user = userService.findUserByUsername((String) redisUtil.getValueByKey("username"));
+        SystemOperateLog systemOperateLog = new SystemOperateLog();
+        systemOperateLog.setOperatorName(user.getUsername());
+        systemOperateLog.setOperateTime(new Date(System.currentTimeMillis()));
+        systemOperateLog.setOperateLog(operateLog);
+        systemOperateLog.setOperateModule(operateModule);
+        systemOperateLog.setOperateResult(operateResult);
+        systemOperateLog.setOperatePhoneNumber(user.getPhoneNumber());
+        systemOperateLog.setOperatorAuthority(user.getRole());
+        systemOperateLog.setCompanyName(user.getUsername());
+        systemOperateLogService.addSystemOperateLog(systemOperateLog);
     }
 
     /**
@@ -93,7 +127,13 @@ public class MemberDiscountPrivilegeController {
     @PostMapping("/memberDiscountPrivileges/deleteBatch")
     public Result deleteMemberDiscountPrivilegeBatchByIds(@RequestBody Long[] ids) {
         int i = memberDiscountPrivilegeService.deleteMemberDiscountPrivilegeBatchByIds(ids);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("批量删除", "会员优惠权限", "1");
+            return Result.ok();
+        } else {
+            addLog("批量删除", "会员优惠权限", "0");
+            return Result.error();
+        }
     }
 
     /**
@@ -110,7 +150,13 @@ public class MemberDiscountPrivilegeController {
         memberDiscountPrivilege.setUpdateTime(new Date(System.currentTimeMillis()));
         //校验 TODO 如有请写
         int i = memberDiscountPrivilegeService.updateMemberDiscountPrivilegeById(memberDiscountPrivilege, memberDiscountPrivilege.getId());
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("更新", "会员优惠权限", "1");
+            return Result.ok();
+        } else {
+            addLog("更新", "会员优惠权限", "0");
+            return Result.error();
+        }
     }
 
 
@@ -127,7 +173,13 @@ public class MemberDiscountPrivilegeController {
     public Result addMemberDiscountPrivilege(@RequestBody MemberDiscountPrivilege memberDiscountPrivilege) {
         //校验 TODO 如有请写
         int i = memberDiscountPrivilegeService.addMemberDiscountPrivilege(memberDiscountPrivilege);
-        return i > 0 ? Result.ok() : Result.error();
+        if (i > 0) {
+            addLog("添加", "会员优惠权限", "1");
+            return Result.ok();
+        } else {
+            addLog("添加", "会员优惠权限", "0");
+            return Result.error();
+        }
     }
 
 }
