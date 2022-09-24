@@ -51,6 +51,13 @@ public class Orders implements Serializable {
      */
     @ApiModelProperty(value = "订单金额")
     private BigDecimal orderAmount;
+
+    /**
+     * 购买者
+     */
+    @ApiModelProperty(value = "购买者")
+    private String buyer;
+
     /**
      * 收货信息
      */

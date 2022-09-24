@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author : sheep669
@@ -127,6 +128,11 @@ public class GroupBuyingOrganizerServiceImpl implements GroupBuyingOrganizerServ
         updateWrapper.eq("id", id);
         updateWrapper.set("audit_status", "1");
         return groupBuyingOrganizerMapper.update(null, updateWrapper);
+    }
+
+    @Override
+    public List<GroupBuyingOrganizer> getGroupBuyingOrganizerRank() {
+        return groupBuyingOrganizerMapper.getGroupBuyingOrganizerRank();
     }
 }
 

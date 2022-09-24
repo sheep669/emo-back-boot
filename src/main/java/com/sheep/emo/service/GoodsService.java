@@ -67,6 +67,5 @@ public interface GoodsService {
      * @created at 2022/8/1 10:28
      */
     int addGoods(Goods goods);
-
 }
 

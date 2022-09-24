@@ -2,5 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sheep.emo.mapper.OrdersMapper">
 
+    <select id="countTodayOrderNum" resultType="Long">
+        SELECT COUNT(*)
+        FROM orders
+        WHERE to_days(purchasing_time) = to_days(
+                now());
+    </select>
 
+    <select id="getBuyerRank" resultType="com.sheep.emo.pojo.Orders">
+        SELECT buyer,
+               order_amount,
+               purchasing_time
+        FROM orders
+        ORDER BY order_amount DESC LIMIT 5
+    </select>
 </mapper>

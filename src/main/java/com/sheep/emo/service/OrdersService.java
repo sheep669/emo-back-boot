@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.Orders;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 操作订单的服务接口
  *
@@ -68,5 +70,15 @@ public interface OrdersService {
      */
     int addOrders(Orders orders);
 
+    /**
+     * 统计当日订单
+     *
+     * @return int
+     * @author sheep669
+     * @created at 2022/9/24 16:38
+     */
+    Long countTodayOrderNum();
+
+    List<Orders> getBuyerRank();
 }
 

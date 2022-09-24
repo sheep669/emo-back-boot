@@ -96,4 +96,9 @@ class EmoBackBootApplicationTests {
         List<Menu> admin = menuMapper.getMenuByRole("admin");
         System.out.println(JSONUtil.toJsonStr(admin));
     }
+    @Test
+    public void  test3(){
+        Long aLong = groupBuyingOrganizerMapper.selectCount(null);
+        System.out.println(aLong);
+    }
 }

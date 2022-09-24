@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 操作订单的服务实现类
@@ -88,6 +89,16 @@ public class OrdersServiceImpl implements OrdersService {
     @Override
     public int addOrders(Orders orders) {
         return ordersMapper.insert(orders);
+    }
+
+    @Override
+    public Long countTodayOrderNum() {
+        return ordersMapper.countTodayOrderNum();
+    }
+
+    @Override
+    public List<Orders> getBuyerRank() {
+        return ordersMapper.getBuyerRank();
     }
 
 }

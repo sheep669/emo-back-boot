@@ -11,6 +11,6 @@ import com.sheep.emo.pojo.Goods;
  */
 
 public interface GoodsMapper extends BaseMapper<Goods> {
-
+    Long getTotalStocks();
 }
 

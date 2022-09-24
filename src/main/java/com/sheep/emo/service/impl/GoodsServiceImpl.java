@@ -92,6 +92,5 @@ public class GoodsServiceImpl implements GoodsService {
     public int addGoods(Goods goods) {
         return goodsMapper.insert(goods);
     }
-
 }
 
