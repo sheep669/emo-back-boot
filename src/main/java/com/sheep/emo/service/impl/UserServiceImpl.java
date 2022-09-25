@@ -104,5 +104,30 @@ public class UserServiceImpl implements UserService {
         return userMapper.insert(user);
     }
 
+    @Override
+    public int grantVip(Long id) {
+        return userMapper.grantVip(id);
+    }
+
+    @Override
+    public int grantSVip(Long id) {
+        return userMapper.grantSVip(id);
+    }
+
+    @Override
+    public int grantAdmin(Long id) {
+        return userMapper.grantAdmin(id);
+    }
+
+    @Override
+    public int grantGroupBuyingOrganizer(Long id) {
+        return userMapper.grantGroupBuyingOrganizer(id);
+    }
+
+    @Override
+    public int grantShopOwners(Long id) {
+        return userMapper.grantShopOwners(id);
+    }
+
 }
 

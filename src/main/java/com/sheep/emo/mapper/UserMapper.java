@@ -29,4 +29,14 @@ public interface UserMapper extends BaseMapper<User> {
      * @created at 2022/9/24 11:40
      */
     User findUserByUsername(String username);
+
+    int grantVip(Long id);
+
+    int grantSVip(Long id);
+
+    int grantAdmin(Long id);
+
+    int grantGroupBuyingOrganizer(Long id);
+
+    int grantShopOwners(Long id);
 }

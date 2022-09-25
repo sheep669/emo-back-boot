@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sheep.emo.mapper.UserMapper">
+
+    <update id="grantAdmin" parameterType="Long">
+        UPDATE `user`
+        SET role      = 'admin',
+            user_type = '5'
+        WHERE id = #{id}
+    </update>
+
+    <update id="grantGroupBuyingOrganizer" parameterType="Long">
+        UPDATE `user`
+        SET role      = 'groupBuyingOrganizer',
+            user_type = '4'
+        WHERE id = #{id}
+    </update>
+
+    <update id="grantShopOwners" parameterType="Long">
+        UPDATE `user`
+        SET role      = 'shopOwners',
+            user_type = '3'
+        WHERE id = #{id}
+    </update>
+
+    <update id="grantSVip" parameterType="Long">
+        UPDATE `user`
+        SET role      = 'svip',
+            user_type = '2'
+        WHERE id = #{id}
+    </update>
+
+    <update id="grantVip" parameterType="Long">
+        UPDATE `user`
+        SET role      = 'user',
+            user_type = '1'
+        WHERE id = #{id}
+    </update>
+
+
     <select id="findPersonalInformation" parameterType="string" resultType="user">
         SELECT username,
                phone_number,

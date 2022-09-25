@@ -84,5 +84,15 @@ public interface UserService {
      * @created at 2022/8/1 10:28
      */
     int addUser(User user);
+
+    int grantVip(Long id);
+
+    int grantSVip(Long id);
+
+    int grantAdmin(Long id);
+
+    int grantGroupBuyingOrganizer(Long id);
+
+    int grantShopOwners(Long id);
 }
 

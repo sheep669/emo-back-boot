@@ -191,4 +191,80 @@ public class UserController {
             return Result.error();
         }
     }
+
+
+    /**
+     * 授权为系统普通会员用户
+     *
+     * @param id 要授权的id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/9/24 22:40
+     */
+    @ApiOperation(value = "授权为系统普通会员用户")
+    @PostMapping("/user/grantVip/{id}")
+    public Result grantVip(@PathVariable Long id) {
+        int i = userService.grantVip(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 授权为系统超级会员用户
+     *
+     * @param id 要授权的id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/9/24 22:40
+     */
+    @ApiOperation(value = "授权为系统超级会员用户")
+    @PostMapping("/user/grantSVip/{id}")
+    public Result grantSVip(@PathVariable Long id) {
+        int i = userService.grantSVip(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 授权为管理员
+     *
+     * @param id 要授权的id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/9/24 22:40
+     */
+    @ApiOperation(value = "授权为管理员")
+    @PostMapping("/user/grantAdmin/{id}")
+    public Result grantAdmin(@PathVariable Long id) {
+        int i = userService.grantAdmin(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 授权为团长
+     *
+     * @param id 要授权的id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/9/24 22:40
+     */
+    @ApiOperation(value = "授权为团长")
+    @PostMapping("/user/grantGroupBuyingOrganizer/{id}")
+    public Result grantGroupBuyingOrganizer(@PathVariable Long id) {
+        int i = userService.grantGroupBuyingOrganizer(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
+
+    /**
+     * 授权为商铺会员
+     *
+     * @param id 要授权的id
+     * @return Result
+     * @author sheep669
+     * @created at 2022/9/24 22:40
+     */
+    @ApiOperation(value = "授权为商铺会员")
+    @PostMapping("/user/grantShopOwners/{id}")
+    public Result grantShopOwners(@PathVariable Long id) {
+        int i = userService.grantShopOwners(id);
+        return i > 0 ? Result.ok() : Result.error();
+    }
 }
