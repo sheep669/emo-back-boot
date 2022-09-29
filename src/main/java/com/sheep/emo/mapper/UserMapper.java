@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sheep.emo.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author : sheep669
  * @description : TODO
@@ -44,4 +46,6 @@ public interface UserMapper extends BaseMapper<User> {
     int uploadAvatarById(@Param("avatar") String avatar, @Param("id") Long id);
 
     String findUserByStatus(String username);
+
+    List<String> findAvatar();
 }

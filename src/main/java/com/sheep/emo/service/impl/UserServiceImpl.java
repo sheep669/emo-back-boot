@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author : sheep669
@@ -132,6 +133,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public int uploadAvatarById(String avatar, Long id) {
         return userMapper.uploadAvatarById(avatar, id);
+    }
+
+    @Override
+    public List<String> findAvatar() {
+        return userMapper.findAvatar();
     }
 
 }

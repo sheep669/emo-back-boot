@@ -68,6 +68,11 @@
         WHERE username = #{username}
     </select>
 
+    <select id="findAvatar" resultType="string">
+        SELECT avatar
+        FROM `user`
+    </select>
+
 
     <update id="uploadAvatarById">
         update user

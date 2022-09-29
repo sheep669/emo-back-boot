@@ -3,6 +3,8 @@ package com.sheep.emo.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.User;
 
+import java.util.List;
+
 /**
  * @author : sheep669
  * @description : TODO
@@ -96,5 +98,7 @@ public interface UserService {
     int grantShopOwners(Long id);
 
     int uploadAvatarById(String avatar, Long id);
+
+    List<String> findAvatar();
 }
 
