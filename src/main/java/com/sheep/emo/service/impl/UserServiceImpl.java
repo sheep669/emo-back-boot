@@ -129,5 +129,10 @@ public class UserServiceImpl implements UserService {
         return userMapper.grantShopOwners(id);
     }
 
+    @Override
+    public int uploadAvatarById(String avatar, Long id) {
+        return userMapper.uploadAvatarById(avatar, id);
+    }
+
 }
 

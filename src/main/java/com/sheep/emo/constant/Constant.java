@@ -13,4 +13,5 @@ public final class Constant {
     public static final String GET_MENUS_URL = "/get_menu_data";
     public static final String REGISTER_URL = "/register";
     public static final String TOKEN_VERIFY_KEY = "@#56MeD4eaSDWD";
+    public static final String USER_IS_LOCKED = "0";
 }

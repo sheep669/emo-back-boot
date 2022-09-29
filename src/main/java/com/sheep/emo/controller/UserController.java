@@ -1,5 +1,6 @@
 package com.sheep.emo.controller;
 
+import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.sheep.emo.pojo.SystemOperateLog;
@@ -12,7 +13,10 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -155,13 +159,7 @@ public class UserController {
         }
         //校验 TODO 如有请写
         int i = userService.updateUserById(user, user.getId());
-        if (i > 0) {
-            addLog("更新", "用户", "1");
-            return Result.ok();
-        } else {
-            addLog("更新", "用户", "0");
-            return Result.error();
-        }
+        return i > 0 ? Result.ok() : Result.error();
     }
 
 
@@ -266,5 +264,29 @@ public class UserController {
     public Result grantShopOwners(@PathVariable Long id) {
         int i = userService.grantShopOwners(id);
         return i > 0 ? Result.ok() : Result.error();
+    }
+
+
+    @PostMapping(value = "/image/upload")
+    @ResponseBody
+    public Result imageUpload(@RequestParam("file") MultipartFile fileUpload, @PathVariable long id) {
+        //获取文件名
+        String fileName = fileUpload.getOriginalFilename();
+        String tmpFilePath = "C:\\Users\\CodeHaywire\\Desktop\\emo-back-boot\\src\\main\\resources\\upload";
+        //没有路径就创建路径
+        File tmp = new File(tmpFilePath);
+        if (!tmp.exists()) {
+            tmp.mkdirs();
+        }
+        String resourcesPath = tmpFilePath + "//" + UUID.randomUUID() + fileName;
+        File upFile = new File(resourcesPath);
+        try {
+            fileUpload.transferTo(upFile);
+            userService.uploadAvatarById(resourcesPath, id);
+            return Result.ok();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Result.error();
+        }
     }
 }

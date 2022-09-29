@@ -2,6 +2,7 @@ package com.sheep.emo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.sheep.emo.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author : sheep669
@@ -39,4 +40,8 @@ public interface UserMapper extends BaseMapper<User> {
     int grantGroupBuyingOrganizer(Long id);
 
     int grantShopOwners(Long id);
+
+    int uploadAvatarById(@Param("avatar") String avatar, @Param("id") Long id);
+
+    String findUserByStatus(String username);
 }

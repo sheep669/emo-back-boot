@@ -11,7 +11,6 @@ import com.sheep.emo.service.UserService;
 import com.sheep.emo.utils.RedisUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -147,7 +146,6 @@ public class AfterSaleController {
      */
     @ApiOperation(value = "更新指定售后信息")
     @PostMapping("/afterSale/update")
-    @PreAuthorize("hasAnyRole('admin')")
     public Result updateAfterSaleById(@RequestBody AfterSale afterSale) {
         afterSale.setUpdateTime(new Date(System.currentTimeMillis()));
         //校验 TODO 如有请写

@@ -41,6 +41,7 @@
     <select id="findPersonalInformation" parameterType="string" resultType="user">
         SELECT username,
                phone_number,
+               avatar,
                account_balance,
                location,
                user_type,
@@ -59,4 +60,18 @@
         FROM `user`
         WHERE username = #{username}
     </select>
+
+
+    <select id="findUserByStatus" parameterType="string" resultType="string">
+        SELECT status
+        FROM `user`
+        WHERE username = #{username}
+    </select>
+
+
+    <update id="uploadAvatarById">
+        update user
+        set avatar=#{avatar}
+        where id = #{id}
+    </update>
 </mapper>

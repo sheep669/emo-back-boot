@@ -13,7 +13,7 @@ public interface UserService {
     /**
      * 查询一个用户
      *
-     * @param username  用户名
+     * @param username 用户名
      * @return com.sheep.emo.pojo.User
      * @author sheep669
      * @created at 2022/9/24 11:38
@@ -94,5 +94,7 @@ public interface UserService {
     int grantGroupBuyingOrganizer(Long id);
 
     int grantShopOwners(Long id);
+
+    int uploadAvatarById(String avatar, Long id);
 }
 
