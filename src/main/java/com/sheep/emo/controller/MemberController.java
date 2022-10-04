@@ -67,7 +67,7 @@ public class MemberController {
             @ApiImplicitParam(name = "member", value = "需要查询的会员参数", dataType = "Member", dataTypeClass = Member.class),
     })
     @PostMapping("/members/page/get/{current}/{size}")
-    public Result searchOrMemberList(@PathVariable int current,
+    public Result searchOrGetMemberList(@PathVariable int current,
                                      @PathVariable int size,
                                      @RequestBody(required = false) Member member) {
         //校验 TODO  如有请写 member允许为空 需先判空

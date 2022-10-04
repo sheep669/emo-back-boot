@@ -67,7 +67,7 @@ public class UserTypeController {
             @ApiImplicitParam(name = "userType", value = "需要查询的用户类型参数", dataType = "UserType", dataTypeClass = UserType.class),
     })
     @PostMapping("/userTypes/page/get/{current}/{size}")
-    public Result searchOrUserTypeList(@PathVariable int current,
+    public Result searchOrGetUserTypeList(@PathVariable int current,
                                        @PathVariable int size,
                                        @RequestBody(required = false) UserType userType) {
         //校验 TODO  如有请写 userType允许为空 需先判空

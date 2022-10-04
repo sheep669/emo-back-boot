@@ -67,7 +67,7 @@ public class GroupBuyingOrganizerWithdrawalInformationController {
             @ApiImplicitParam(name = "groupBuyingOrganizerWithdrawalInformation", value = "需要查询的团长提现信息参数", dataType = "GroupBuyingOrganizerWithdrawalInformation", dataTypeClass = GroupBuyingOrganizerWithdrawalInformation.class),
     })
     @PostMapping("/groupBuyingOrganizerWithdrawalInformation/page/get/{current}/{size}")
-    public Result searchOrGroupBuyingOrganizerWithdrawalInformationList(@PathVariable int current,
+    public Result searchOrGetGroupBuyingOrganizerWithdrawalInformationList(@PathVariable int current,
                                                                         @PathVariable int size,
                                                                         @RequestBody(required = false) GroupBuyingOrganizerWithdrawalInformation groupBuyingOrganizerWithdrawalInformation) {
         //校验 TODO  如有请写 groupBuyingOrganizerWithdrawalInformation允许为空 需先判空

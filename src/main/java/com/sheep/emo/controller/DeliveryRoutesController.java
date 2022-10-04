@@ -67,7 +67,7 @@ public class DeliveryRoutesController {
             @ApiImplicitParam(name = "deliveryRoutes", value = "需要查询的配送路线参数", dataType = "DeliveryRoutes", dataTypeClass = DeliveryRoutes.class),
     })
     @PostMapping("/deliveryRoutes/page/get/{current}/{size}")
-    public Result searchOrDeliveryRoutesList(@PathVariable int current,
+    public Result searchOrGetDeliveryRoutesList(@PathVariable int current,
                                              @PathVariable int size,
                                              @RequestBody(required = false) DeliveryRoutes deliveryRoutes) {
         //校验 TODO  如有请写 deliveryRoutes允许为空 需先判空

@@ -67,7 +67,7 @@ public class DeliveryPaperController {
             @ApiImplicitParam(name = "deliveryPaper", value = "需要查询的配送单管理参数", dataType = "DeliveryPaper", dataTypeClass = DeliveryPaper.class),
     })
     @PostMapping("/deliveryPapers/page/get/{current}/{size}")
-    public Result searchOrDeliveryPaperList(@PathVariable int current,
+    public Result searchOrGetDeliveryPaperList(@PathVariable int current,
                                             @PathVariable int size,
                                             @RequestBody(required = false) DeliveryPaper deliveryPaper) {
         //校验 TODO  如有请写 deliveryPaper允许为空 需先判空

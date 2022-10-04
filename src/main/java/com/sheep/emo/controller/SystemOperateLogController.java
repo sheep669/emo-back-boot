@@ -62,7 +62,7 @@ public class SystemOperateLogController {
             @ApiImplicitParam(name = "systemOperateLog", value = "需要查询的操作日志参数", dataType = "SystemOperateLog", dataTypeClass = SystemOperateLog.class),
     })
     @PostMapping("/systemOperateLogs/page/get/{current}/{size}")
-    public Result searchOrSystemOperateLogList(@PathVariable int current,
+    public Result searchOrGetSystemOperateLogList(@PathVariable int current,
                                                @PathVariable int size,
                                                @RequestBody(required = false) SystemOperateLog systemOperateLog) {
         //校验 TODO  如有请写 systemOperateLog允许为空 需先判空

@@ -67,7 +67,7 @@ public class OrdersController {
             @ApiImplicitParam(name = "orders", value = "需要查询的订单参数", dataType = "Orders", dataTypeClass = Orders.class),
     })
     @PostMapping("/orders/page/get/{current}/{size}")
-    public Result searchOrOrdersList(@PathVariable int current,
+    public Result searchOrGetOrdersList(@PathVariable int current,
                                      @PathVariable int size,
                                      @RequestBody(required = false) Orders orders) {
         //校验 TODO  如有请写 orders允许为空 需先判空

@@ -70,7 +70,7 @@ public class UserController {
             @ApiImplicitParam(name = "user", value = "需要查询的用户参数", dataType = "User", dataTypeClass = User.class),
     })
     @PostMapping("/users/page/get/{current}/{size}")
-    public Result searchOrUserList(@PathVariable int current,
+    public Result searchOrGetUserList(@PathVariable int current,
                                    @PathVariable int size,
                                    @RequestBody(required = false) User user) {
         //校验 TODO  如有请写 user允许为空 需先判空

@@ -67,7 +67,7 @@ public class MemberLabelController {
             @ApiImplicitParam(name = "memberLabel", value = "需要查询的会员标签参数", dataType = "MemberLabel", dataTypeClass = MemberLabel.class),
     })
     @PostMapping("/memberLabels/page/get/{current}/{size}")
-    public Result searchOrMemberLabelList(@PathVariable int current,
+    public Result searchOrGetMemberLabelList(@PathVariable int current,
                                           @PathVariable int size,
                                           @RequestBody(required = false) MemberLabel memberLabel) {
         //校验 TODO  如有请写 memberLabel允许为空 需先判空

@@ -66,7 +66,7 @@ public class DealSerialController {
             @ApiImplicitParam(name = "dealSerial", value = "需要查询的交易流水参数", dataType = "DealSerial", dataTypeClass = DealSerial.class),
     })
     @PostMapping("/dealSerials/page/get/{current}/{size}")
-    public Result searchOrDealSerialList(@PathVariable int current,
+    public Result searchOrGetDealSerialList(@PathVariable int current,
                                          @PathVariable int size,
                                          @RequestBody(required = false) DealSerial dealSerial) {
         //校验 TODO  如有请写 dealSerial允许为空 需先判空

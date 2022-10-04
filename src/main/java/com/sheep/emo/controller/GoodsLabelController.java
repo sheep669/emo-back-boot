@@ -67,7 +67,7 @@ public class GoodsLabelController {
             @ApiImplicitParam(name = "goodsLabel", value = "需要查询的商品标签参数", dataType = "GoodsLabel", dataTypeClass = GoodsLabel.class),
     })
     @PostMapping("/goodsLabels/page/get/{current}/{size}")
-    public Result searchOrGoodsLabelList(@PathVariable int current,
+    public Result searchOrGetGoodsLabelList(@PathVariable int current,
                                          @PathVariable int size,
                                          @RequestBody(required = false) GoodsLabel goodsLabel) {
         //校验 TODO  如有请写 goodsLabel允许为空 需先判空

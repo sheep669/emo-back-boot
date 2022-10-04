@@ -68,9 +68,9 @@ public class GoodsController {
             @ApiImplicitParam(name = "goods", value = "需要查询的商品参数", dataType = "Goods", dataTypeClass = Goods.class),
     })
     @PostMapping("/goods/page/get/{current}/{size}")
-    public Result searchOrGoodsList(@PathVariable int current,
-                                    @PathVariable int size,
-                                    @RequestBody(required = false) Goods goods) {
+    public Result searchOrGetGoodsList(@PathVariable int current,
+                                       @PathVariable int size,
+                                       @RequestBody(required = false) Goods goods) {
         //校验 TODO  如有请写 goods允许为空 需先判空
         Page<Goods> pageGoodsList = goodsService.searchOrGetGoodsList(current, size, goods);
         List<Goods> records = pageGoodsList.getRecords();

@@ -67,7 +67,7 @@ public class GroupBuyingOrganizerClearController {
             @ApiImplicitParam(name = "groupBuyingOrganizerClear", value = "需要查询的团长结算参数", dataType = "GroupBuyingOrganizerClear", dataTypeClass = GroupBuyingOrganizerClear.class),
     })
     @PostMapping("/groupBuyingOrganizerClears/page/get/{current}/{size}")
-    public Result searchOrGroupBuyingOrganizerClearList(@PathVariable int current,
+    public Result searchOrGetGroupBuyingOrganizerClearList(@PathVariable int current,
                                                         @PathVariable int size,
                                                         @RequestBody(required = false) GroupBuyingOrganizerClear groupBuyingOrganizerClear) {
         //校验 TODO  如有请写 groupBuyingOrganizerClear允许为空 需先判空

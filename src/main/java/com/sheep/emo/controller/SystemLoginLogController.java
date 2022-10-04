@@ -67,7 +67,7 @@ public class SystemLoginLogController {
             @ApiImplicitParam(name = "systemLoginLog", value = "需要查询的登录日志参数", dataType = "SystemLoginLog", dataTypeClass = SystemLoginLog.class),
     })
     @PostMapping("/systemLoginLogs/page/get/{current}/{size}")
-    public Result searchOrSystemLoginLogList(@PathVariable int current,
+    public Result searchOrGetSystemLoginLogList(@PathVariable int current,
                                              @PathVariable int size,
                                              @RequestBody(required = false) SystemLoginLog systemLoginLog) {
         //校验 TODO  如有请写 systemLoginLog允许为空 需先判空

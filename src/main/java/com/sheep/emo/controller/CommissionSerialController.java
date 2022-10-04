@@ -67,7 +67,7 @@ public class CommissionSerialController {
             @ApiImplicitParam(name = "commissionSerial", value = "需要查询的佣金流水参数", dataType = "CommissionSerial", dataTypeClass = CommissionSerial.class),
     })
     @PostMapping("/commissionSerials/page/get/{current}/{size}")
-    public Result searchOrCommissionSerialList(@PathVariable int current,
+    public Result searchOrGetCommissionSerialList(@PathVariable int current,
                                                @PathVariable int size,
                                                @RequestBody(required = false) CommissionSerial commissionSerial) {
         //校验 TODO  如有请写 commissionSerial允许为空 需先判空

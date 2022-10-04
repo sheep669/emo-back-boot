@@ -67,7 +67,7 @@ public class GoodsCategoryController {
             @ApiImplicitParam(name = "goodsCategory", value = "需要查询的产品分类参数", dataType = "GoodsCategory", dataTypeClass = GoodsCategory.class),
     })
     @PostMapping("/goodsCategories/page/get/{current}/{size}")
-    public Result searchOrGoodsCategoryList(@PathVariable int current,
+    public Result searchOrGetGoodsCategoryList(@PathVariable int current,
                                             @PathVariable int size,
                                             @RequestBody(required = false) GoodsCategory goodsCategory) {
         //校验 TODO  如有请写 goodsCategory允许为空 需先判空

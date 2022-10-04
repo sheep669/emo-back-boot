@@ -67,7 +67,7 @@ public class AfterSaleController {
             @ApiImplicitParam(name = "afterSale", value = "需要查询的售后参数", dataType = "AfterSale", dataTypeClass = AfterSale.class),
     })
     @PostMapping("/afterSales/page/get/{current}/{size}")
-    public Result searchOrAfterSaleList(@PathVariable int current,
+    public Result searchOrGetAfterSaleList(@PathVariable int current,
                                         @PathVariable int size,
                                         @RequestBody(required = false) AfterSale afterSale) {
         //校验 TODO  如有请写 afterSale允许为空 需先判空

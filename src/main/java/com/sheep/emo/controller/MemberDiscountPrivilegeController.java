@@ -67,7 +67,7 @@ public class MemberDiscountPrivilegeController {
             @ApiImplicitParam(name = "memberDiscountPrivilege", value = "需要查询的会员优惠权限参数", dataType = "MemberDiscountPrivilege", dataTypeClass = MemberDiscountPrivilege.class),
     })
     @PostMapping("/memberDiscountPrivileges/page/get/{current}/{size}")
-    public Result searchOrMemberDiscountPrivilegeList(@PathVariable int current,
+    public Result searchOrGetMemberDiscountPrivilegeList(@PathVariable int current,
                                                       @PathVariable int size,
                                                       @RequestBody(required = false) MemberDiscountPrivilege memberDiscountPrivilege) {
         //校验 TODO  如有请写 memberDiscountPrivilege允许为空 需先判空

@@ -67,7 +67,7 @@ public class GoodsCommentController {
             @ApiImplicitParam(name = "goodsComment", value = "需要查询的商品评论参数", dataType = "GoodsComment", dataTypeClass = GoodsComment.class),
     })
     @PostMapping("/goodsComments/page/get/{current}/{size}")
-    public Result searchOrGoodsCommentList(@PathVariable int current,
+    public Result searchOrGetGoodsCommentList(@PathVariable int current,
                                            @PathVariable int size,
                                            @RequestBody(required = false) GoodsComment goodsComment) {
         //校验 TODO  如有请写 goodsComment允许为空 需先判空
