@@ -161,6 +161,8 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/captcha").permitAll()
                 // .antMatchers("/get_menu_data").permitAll()
+                //允许所有人访问knife4j
+                .antMatchers("/doc.html", "/webjars/**", "/img.icons/**", "/swagger-resources/**", "/**", "/v2/api-docs").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/logout").permitAll()
                 .anyRequest().authenticated()

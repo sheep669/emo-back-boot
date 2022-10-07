@@ -1,6 +1,7 @@
 package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.sheep.emo.pojo.SystemOperateLog;
 import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
@@ -158,6 +159,7 @@ public class SystemOperateLogController {
      * @created at 2022/8/1 10:33
      */
     @ApiOperation(value = "添加操作日志")
+    @ApiOperationSupport(ignoreParameters = "id")
     @PostMapping("/systemOperateLog/add")
     public Result addSystemOperateLog(@RequestBody SystemOperateLog systemOperateLog) {
         //校验 TODO 如有请写

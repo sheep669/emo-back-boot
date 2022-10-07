@@ -1,6 +1,7 @@
 package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.sheep.emo.pojo.AfterSale;
 import com.sheep.emo.pojo.SystemOperateLog;
 import com.sheep.emo.pojo.User;
@@ -68,8 +69,8 @@ public class AfterSaleController {
     })
     @PostMapping("/afterSales/page/get/{current}/{size}")
     public Result searchOrGetAfterSaleList(@PathVariable int current,
-                                        @PathVariable int size,
-                                        @RequestBody(required = false) AfterSale afterSale) {
+                                           @PathVariable int size,
+                                           @RequestBody(required = false) AfterSale afterSale) {
         //校验 TODO  如有请写 afterSale允许为空 需先判空
         Page<AfterSale> pageAfterSaleList = afterSaleService.searchOrGetAfterSaleList(current, size, afterSale);
         List<AfterSale> records = pageAfterSaleList.getRecords();
@@ -169,6 +170,7 @@ public class AfterSaleController {
      * @created at 2022/8/1 10:33
      */
     @ApiOperation(value = "添加售后")
+    @ApiOperationSupport(ignoreParameters = "id")
     @PostMapping("/afterSale/add")
     public Result addAfterSale(@RequestBody AfterSale afterSale) {
         //校验 TODO 如有请写

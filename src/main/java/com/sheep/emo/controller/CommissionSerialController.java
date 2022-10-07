@@ -1,6 +1,7 @@
 package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.sheep.emo.pojo.CommissionSerial;
 import com.sheep.emo.pojo.SystemOperateLog;
 import com.sheep.emo.pojo.User;
@@ -169,6 +170,7 @@ public class CommissionSerialController {
      * @created at 2022/8/1 10:33
      */
     @ApiOperation(value = "添加佣金流水")
+    @ApiOperationSupport(ignoreParameters = "id")
     @PostMapping("/commissionSerial/add")
     public Result addCommissionSerial(@RequestBody CommissionSerial commissionSerial) {
         //校验 TODO 如有请写

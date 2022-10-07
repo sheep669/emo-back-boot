@@ -1,6 +1,7 @@
 package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.sheep.emo.pojo.SystemOperateLog;
 import com.sheep.emo.pojo.User;
 import com.sheep.emo.pojo.UserType;
@@ -169,6 +170,7 @@ public class UserTypeController {
      * @created at 2022/8/1 10:33
      */
     @ApiOperation(value = "添加用户类型")
+    @ApiOperationSupport(ignoreParameters = "id")
     @PostMapping("/userType/add")
     public Result addUserType(@RequestBody UserType userType) {
         //校验 TODO 如有请写

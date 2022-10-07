@@ -1,6 +1,7 @@
 package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.sheep.emo.pojo.GoodsComment;
 import com.sheep.emo.pojo.SystemOperateLog;
 import com.sheep.emo.pojo.User;
@@ -169,6 +170,7 @@ public class GoodsCommentController {
      * @created at 2022/8/1 10:33
      */
     @ApiOperation(value = "添加商品评论")
+    @ApiOperationSupport(ignoreParameters = "id")
     @PostMapping("/goodsComment/add")
     public Result addGoodsComment(@RequestBody GoodsComment goodsComment) {
         //校验 TODO 如有请写

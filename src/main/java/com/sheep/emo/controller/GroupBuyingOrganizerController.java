@@ -3,6 +3,7 @@ package com.sheep.emo.controller;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.sheep.emo.pojo.GroupBuyingOrganizer;
 import com.sheep.emo.pojo.SystemOperateLog;
 import com.sheep.emo.pojo.User;
@@ -183,6 +184,7 @@ public class GroupBuyingOrganizerController {
      * @created at 2022/8/1 10:33
      */
     @ApiOperation(value = "添加团长")
+    @ApiOperationSupport(ignoreParameters = "id")
     @PostMapping("/groupBuyingOrganizer/add")
     public Result addGroupBuyingOrganizer(@RequestBody GroupBuyingOrganizer groupBuyingOrganizer) {
         //校验号码是否属于合法格式

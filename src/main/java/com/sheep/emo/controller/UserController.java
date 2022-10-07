@@ -3,6 +3,7 @@ package com.sheep.emo.controller;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.sheep.emo.pojo.SystemOperateLog;
 import com.sheep.emo.pojo.User;
 import com.sheep.emo.response.Result;
@@ -172,6 +173,7 @@ public class UserController {
      * @created at 2022/8/1 10:33
      */
     @ApiOperation(value = "添加用户")
+    @ApiOperationSupport(ignoreParameters = "id")
     @PostMapping("/user/add")
     public Result addUser(@RequestBody User user) {
         //明文加密

@@ -1,6 +1,7 @@
 package com.sheep.emo.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.sheep.emo.pojo.DealSerial;
 import com.sheep.emo.pojo.SystemOperateLog;
 import com.sheep.emo.pojo.User;
@@ -168,6 +169,7 @@ public class DealSerialController {
      * @created at 2022/8/1 10:33
      */
     @ApiOperation(value = "添加交易流水")
+    @ApiOperationSupport(ignoreParameters = "id")
     @PostMapping("/dealSerial/add")
     public Result addDealSerial(@RequestBody DealSerial dealSerial) {
         //校验 TODO 如有请写
