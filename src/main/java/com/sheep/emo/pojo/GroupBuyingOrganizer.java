@@ -31,7 +31,7 @@ public class GroupBuyingOrganizer implements Serializable {
     /**
      * 主键id
      */
-    @ApiModelProperty(value = "团长id")
+    @ApiModelProperty(value = "团长id", required = true)
     @TableId(type = IdType.AUTO)
     private Long id;
     /**

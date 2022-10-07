@@ -28,7 +28,7 @@ import java.util.Date;
 public class AfterSale implements Serializable {
     private static final long serialVersionUID = -36329215745547294L;
 
-    @ApiModelProperty(value = "主键id")
+    @ApiModelProperty(value = "主键id",required = true)
     @TableId(type = IdType.AUTO)
     private Long id;
     /**

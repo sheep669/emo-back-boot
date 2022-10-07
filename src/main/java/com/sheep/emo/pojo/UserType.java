@@ -28,7 +28,7 @@ public class UserType implements Serializable {
      * 主键id
      */
     @TableId(type = IdType.AUTO)
-    @ApiModelProperty(value = "主键id")
+    @ApiModelProperty(value = "主键id", required = true)
     private Long id;
     /**
      * 用户类型名称

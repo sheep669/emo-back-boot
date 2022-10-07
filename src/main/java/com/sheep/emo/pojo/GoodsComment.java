@@ -29,7 +29,7 @@ public class GoodsComment implements Serializable {
     /**
      * 主键id
      */
-    @ApiModelProperty(value = "主键id")
+    @ApiModelProperty(value = "主键id", required = true)
     @TableId(type = IdType.AUTO)
     private Long id;
     /**

@@ -23,13 +23,13 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@ApiModel(value="GoodsCategory对象", description="产品分类表")
+@ApiModel(value = "GoodsCategory对象", description = "产品分类表")
 public class GoodsCategory implements Serializable {
     private static final long serialVersionUID = 276782930354987014L;
     /**
      * 主键id
      */
-    @ApiModelProperty(value = "主键id")
+    @ApiModelProperty(value = "主键id", required = true)
     @TableId(type = IdType.AUTO)
     private Long id;
     /**
